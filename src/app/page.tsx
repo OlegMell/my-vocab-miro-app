@@ -44,7 +44,17 @@ export default async function Page() {
   return (
     <div>
 
-      <Home user={JSON.stringify( currentUser )} userId={userId} />
+      {
+        authUrl ? (
+          <a className="button button-primary" href={authUrl} target="_blank">
+            Login
+          </a>
+        )
+          : (
+            <Home user={JSON.stringify( currentUser )} userId={userId} />
+          )
+      }
+
 
       {/* {
         authUrl ? (
