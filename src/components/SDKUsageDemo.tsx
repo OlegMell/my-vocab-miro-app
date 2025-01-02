@@ -1,11 +1,12 @@
 'use client';
-import {FC} from 'react';
+
+import { FC } from 'react';
 
 async function addSticky() {
-  const stickyNote = await miro.board.createStickyNote({
+  const stickyNote = await miro.board.createStickyNote( {
     content: 'Hello, World!',
-  });
-  await miro.board.viewport.zoomTo(stickyNote);
+  } );
+  await miro.board.viewport.zoomTo( stickyNote );
 }
 
 export const SDKUsageDemo: FC = () => {

@@ -1,0 +1,88 @@
+.button {
+    background-color: red;
+}
+
+.button-hollow {
+    background-color: transparent;
+    color: var(--black);
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+
+.icon-button {
+    background-color: transparent;
+    width: min-content;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.1s ease;
+}
+
+.icon-button:hover,
+.icon-button>span:hover {
+    transform: scale(1.05);
+}
+
+.icon-button>span {
+    cursor: inherit;
+}
+
+.sticky-bottom {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
+
+.students {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.clickable-item {
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    list-style: none;
+    font-weight: 500;
+}
+
+.student {
+    background-color: var(--green100);
+}
+
+.topic {
+    background-color: var(--blue100);
+}
+
+.word {
+    background-color: var(--yellow100);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.clickable-item:hover {
+    filter: brightness(95%);
+}
+
+.actionable {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    align-items: center;
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        font-size: 40px;
+        text-anchor: middle;
+        font-family: Candara;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+    </style>
+  </defs>
+  <image id="Background" width="50" height="50" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAUklEQVRoge3PAQ0AIAzAsIN/z8dGQ1YHPbu784H7Q2KKgIpoimiKaIpoimiKaIpoimiKaIpoimiKaIpoimiKaIpoimiKaIpoimiKaIpoilBm5gE8xARgWjgljQAAAABJRU5ErkJggg=="/>
+  <circle class="cls-1" cx="25" cy="25" r="25"/>
+  <text id="V" class="cls-2" x="25.984" y="37.797"><tspan x="25.984">V</tspan></text>
+</svg>

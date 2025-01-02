@@ -8,19 +8,28 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.0.1",
+    "@google-cloud/translate": "^8.5.0",
+    "@iamtraction/google-translate": "^2.0.1",
     "@mirohq/miro-api": "^2.0.0",
+    "animate.css": "^4.1.1",
+    "cookie": "^0.5.0",
+    "dotenv": "^16.0.3",
+    "google-translate-api": "^2.3.0",
+    "google-translate-api-browser": "^5.0.0",
     "mirotone": "5",
+    "mongoose": "^8.9.2",
+    "next": "14.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "dotenv": "^16.0.3",
-    "cookie": "^0.5.0"
+    "react-hook-form": "^7.54.2",
+    "react-responsive-carousel": "^3.2.23"
   },
   "devDependencies": {
     "@mirohq/websdk-types": "latest",
-    "typescript": "4.9.5",
+    "@types/cookie": "^0.5.1",
+    "@types/google-translate-api": "^2.3.5",
     "@types/node": "^18.8.2",
     "@types/react": "^18.0.24",
-    "@types/cookie": "^0.5.1"
+    "typescript": "4.9.5"
   }
 }
