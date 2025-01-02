@@ -8,6 +8,7 @@ import { Tabs } from '../components/Tabs';
 import { PageContent } from '../components/PageContent';
 import { TabsProvider } from '../components/TabsProvider';
 import Welcome from '../components/Welcome';
+import Home from '../components/Home';
 
 const getBoards = async () => {
   const { miro, userId } = initMiroAPI();
@@ -37,21 +38,14 @@ export default async function Page() {
 
   const currentUser = await getUserByMiroUserId( userId! );
 
+  console.log( '[USER_ID]', userId )
+
   // console.log( currentUser );
 
   return (
     <div>
 
-      {
-        currentUser ? (
-          <TabsProvider>
-            <Tabs userType={currentUser.type} />
-            <PageContent userSerialized={JSON.stringify( currentUser )} />
-          </TabsProvider>
-        ) : (
-          <Welcome userId={userId} />
-        )
-      }
+      <Home user={JSON.stringify( currentUser )} userId={userId} />
 
       {/* {
         authUrl ? (

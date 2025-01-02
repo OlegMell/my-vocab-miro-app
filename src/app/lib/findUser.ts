@@ -3,6 +3,11 @@ export const findUserByEmail = async ( email: string ) => {
         .then( res => res.json() );
 }
 
+export const findUserByUserId = async ( userId: string ) => {
+    return await fetch( `/api/users?userId=${ userId }` )
+        .then( res => res.json() );
+}
+
 export const findStudents = async () => {
     return await fetch( `/api/students` )
         .then( r => r.json() );

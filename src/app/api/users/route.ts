@@ -10,8 +10,15 @@ import initMiroAPI from '../../../utils/initMiroAPI';
 export async function GET( req: NextRequest ) {
     const searchParams = req.nextUrl.searchParams;
     const email = searchParams.get( 'email' );
+    const userId = searchParams.get( 'userId' );
+    // const populate = searchParams.get( 'populate' );
 
-    const user = await usersModel.findOne( { email } ).exec();
+    let user;
+    if ( email ) {
+        user = await usersModel.findOne( { email } ).exec();
+    } else if ( userId ) {
+        user = await usersModel.findOne( { userId } ).populate( 'topics' ).exec();
+    }
 
     return NextResponse.json( { data: user } );
 }
@@ -49,6 +56,9 @@ export async function POST( req: NextRequest ) {
 
 
     const topics = await topicModel.find().exec();
+
+
+    console.log( user )
 
     const createdUser = new usersModel( user );
 

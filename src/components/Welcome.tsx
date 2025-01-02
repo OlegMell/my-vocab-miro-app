@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { addUserToDB } from '../app/lib/addUser';
 import { useForm } from 'react-hook-form';
 
-export default function Welcome( { userId }: any ): React.ReactElement {
+export default function Welcome( { userId, updateUser }: any ): React.ReactElement {
 
     const [ error, setError ] = useState<string | undefined>();
 
@@ -28,8 +28,11 @@ export default function Welcome( { userId }: any ): React.ReactElement {
 
         if ( 'error' in response ) {
             setError( response.error );
+            return;
         }
-    } )
+
+        updateUser();
+    } );
 
     return (
         <>
