@@ -11,6 +11,7 @@ import { findUserByUserId } from '../app/lib/findUser';
 export default function Home( { user, userId }: any ): ReactElement {
 
     console.log( user )
+    console.log( userId )
 
     const [ currentUser, setCurrentUser ] = useState( user !== 'null' ? JSON.parse( user ) : undefined );
 
