@@ -5,7 +5,6 @@ import { TabsProvider } from './TabsProvider';
 import { Tabs } from './Tabs';
 import { PageContent } from './PageContent';
 import Welcome from './Welcome';
-import { getUserByMiroUserId } from '../app/core/server';
 import { findUserByUserId } from '../app/lib/findUser';
 
 export default function Home( { user, userId }: any ): ReactElement {

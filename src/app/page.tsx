@@ -1,17 +1,16 @@
 import React from 'react';
 import { Board } from '@mirohq/miro-api';
 
-import initMiroAPI from '../utils/initMiroAPI';
 import '../assets/style.css';
+
+import initMiroAPI from '../utils/initMiroAPI';
 import { getUserByMiroUserId } from './core/server';
-import { Tabs } from '../components/Tabs';
-import { PageContent } from '../components/PageContent';
-import { TabsProvider } from '../components/TabsProvider';
-import Welcome from '../components/Welcome';
 import Home from '../components/Home';
 
 const getBoards = async () => {
   const { miro, userId } = initMiroAPI();
+
+  console.log( 'AUTH ', userId );
 
   // redirect to auth url if user has not authorized the app
   if ( !userId || !( await miro.isAuthorized( userId ) ) ) {
