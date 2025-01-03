@@ -10,7 +10,5 @@ export const MiroSDKInit = () => {
     } );
   } );
 
-
-
   return null;
 };
