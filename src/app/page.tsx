@@ -22,9 +22,16 @@ const getBoards = async () => {
   const api = miro.as( userId );
 
   const boards: Board[] = [];
-  for await ( const board of api.getAllBoards() ) {
-    boards.push( board );
+  try {
+    for await ( const board of api.getAllBoards() ) {
+      boards.push( board );
+    }
+  } catch ( e ) {
+    return {
+      userId
+    }
   }
+
 
   return {
     boards,

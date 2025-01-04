@@ -14,7 +14,7 @@ export default function RootLayout( { children }: PropsWithChildren ) {
           src="https://miro.com/app/static/sdk/v2/miro.js"
           strategy="beforeInteractive"
         />
-        {/* <MiroSDKInit /> */}
+        <MiroSDKInit />
         <div id="root">
           <div className="grid">
             {/* <div className="cs1 ce12">
