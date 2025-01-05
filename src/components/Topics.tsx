@@ -13,13 +13,7 @@ interface TopicsProps {
 export function Topics( { topics, userId, addWordClicked }: TopicsProps ): React.ReactElement {
     return (
         <>
-            <h2 className={`title topics-title`}>
-                Topics
-
-                {/* <button type='button' className={styles[ 'icon-button' ]}>
-                    <span className="icon icon-plus"></span>
-                </button> */}
-            </h2>
+            <h2 className={`title topics-title`}>Topics</h2>
             {
                 topics
                     ? ( <ul className='list'>

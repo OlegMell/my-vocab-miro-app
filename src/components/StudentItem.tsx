@@ -27,15 +27,13 @@ export function StudentItem( { student, updateStudents }: StudentProps ): React.
 
         localStorage.setItem( LocalStorageKeys.SELECTED_USER, student._id );
 
-        console.log( 'Student clicked:', student.name );
-
-        // fetch topics by student
         const res = await fetch( `/api/topics?studentId=${ student._id }` );
         const topics = await res.json();
 
         if ( topics ) {
             setTopics( topics.data );
         }
+
         setFetching( false );
     }
 
@@ -45,11 +43,11 @@ export function StudentItem( { student, updateStudents }: StudentProps ): React.
 
     const handleDelete = async ( e: any ) => {
         e.stopPropagation();
-        const res = await deleteStudent( student._id );
+        await deleteStudent( student._id );
         updateStudents();
     }
 
-    const handleWordAdded = async ( e: any ) => {
+    const handleWordAdded = async () => {
         setShowAddWord( false );
     }
 
@@ -67,13 +65,9 @@ export function StudentItem( { student, updateStudents }: StudentProps ): React.
                         <span className="icon icon-trash"></span>
                     </button>
 
-                    {/* <Link href={`/test/${ student._id }`}>
-                        Test
-                    </Link> */}
                 </div>
 
             </li>
-            {/* <button className="button button-secondary button-small button-loading" type="button"></button> */}
             {
                 !showAddWord && !!topics && topics.length > 0 && (
                     <div className='sub-items'>
@@ -84,7 +78,7 @@ export function StudentItem( { student, updateStudents }: StudentProps ): React.
             {
                 showAddWord && (
                     <AddWord
-                        ddedCallback={handleWordAdded}
+                        addedCallback={handleWordAdded}
                         user={student}
                         topics={topics || []}
                     />

@@ -1,5 +1,7 @@
+import Loader from '../components/Loader';
+
 const Loading = () => {
-  return <div>...Loading</div>;
+  return <Loader fullSize={true} />;
 };
 
 export default Loading;

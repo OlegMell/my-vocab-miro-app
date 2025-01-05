@@ -49,9 +49,12 @@ export default function AddStudent( { handleAdded }: AddStudentProps ): ReactEle
                 className='button button-primary button-medium'>Find</button>
 
             {
-                foundUser ? <p onClick={addStudent} title='Click to add' className='found-user'>
-                    {foundUser.name} | {foundUser.email}
-                </p>
+                foundUser
+                    ? (
+                        <p onClick={addStudent} title='Click to add' className='found-user'>
+                            {foundUser.name} | {foundUser.email}
+                        </p>
+                    )
                     : <p>User not found! Check email and try again!</p>
             }
         </div>

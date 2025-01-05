@@ -18,5 +18,5 @@ export async function GET( request: NextRequest ) {
   } catch ( error ) {
     redirect( '/?error' );
   }
-  redirect( `/` );
+  redirect( `/success-logged-in` );
 }

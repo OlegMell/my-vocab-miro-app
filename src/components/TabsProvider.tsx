@@ -20,7 +20,6 @@ export function TabsProvider( { children }: { children: any } ): React.ReactElem
 
     const handleTabClick = ( index: number ) => {
         localStorage.removeItem( LocalStorageKeys.SELECTED_USER );
-        console.log( index )
         setActiveTab( index );
     }
 

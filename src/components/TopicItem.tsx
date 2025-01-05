@@ -21,7 +21,6 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
     const [ fetching, setFetching ] = React.useState<boolean>( false );
 
     const handleTopicClick = async () => {
-        console.log( `Clicked on topic: ${ topic.name }` );
         setFetching( true );
 
         const res = await fetch( `/api/words?topicId=${ topic._id }${ userId ? `&userId=${ userId }` : '' } `, );
@@ -34,11 +33,6 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
         setFetching( false );
     }
 
-    const handleDelete = async () => {
-        console.log( `Deleting topic: ${ topic.name }` );
-        // make delete request
-    }
-
     return (
         <>
             <li
@@ -46,11 +40,7 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
                 onClick={handleTopicClick}>{topic.name}
 
                 <div className={`${ styles[ 'item-actions' ] }`}>
-                    {fetching && <Image className='rotation' src={loaderIco} alt='' />}
-
-                    {/* <button type='button' onClick={handleDelete} className={styles[ 'icon-button' ]}>
-                        <span className="icon icon-trash"></span>
-                    </button> */}
+                    {fetching && <Image className='rotation' src={loaderIco} alt='loader icon' />}
                 </div>
 
             </li>

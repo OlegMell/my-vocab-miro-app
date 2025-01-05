@@ -10,8 +10,6 @@ import Home from '../components/Home';
 const getBoards = async () => {
   const { miro, userId } = initMiroAPI();
 
-  console.log( 'AUTH ', userId );
-
   // redirect to auth url if user has not authorized the app
   if ( !userId || !( await miro.isAuthorized( userId ) ) ) {
     return {
@@ -40,13 +38,9 @@ const getBoards = async () => {
 };
 
 export default async function Page() {
-  const { boards, userId, authUrl } = await getBoards();
+  const { userId, authUrl } = await getBoards();
 
   const currentUser = await getUserByMiroUserId( userId! );
-
-  console.log( '[USER_ID]', userId )
-
-  // console.log( currentUser );
 
   return (
     <div>
@@ -61,25 +55,6 @@ export default async function Page() {
             <Home user={JSON.stringify( currentUser )} userId={userId} />
           )
       }
-
-
-      {/* {
-        authUrl ? (
-          <a className="button button-primary" href={authUrl} target="_blank">
-            Login
-          </a>
-        ) : (
-          <>
-            <p>This is a list of all the boards that your user has access to:</p>
-
-            <ul>
-              {boards?.map( ( board ) => (
-                <li key={board.name}>{board.name}</li>
-              ) )}
-            </ul>
-          </>
-        )
-      } */}
     </div >
   );
 }

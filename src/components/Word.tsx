@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 import { Word as IWord } from '../app/core/models/word.interface';
+import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
 
 export interface WordProps {
     readonly word: IWord;
@@ -29,7 +30,7 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
     }
 
     const handleCheck = ( e ) => {
-        let wordsList: any = localStorage.getItem( 'WORDS' );
+        let wordsList: any = localStorage.getItem( LocalStorageKeys.WORDS );
         if ( !wordsList ) {
             wordsList = [];
         } else {
@@ -37,7 +38,7 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
         }
 
         wordsList.push( _word );
-        localStorage.setItem( 'WORDS', JSON.stringify( wordsList ) );
+        localStorage.setItem( LocalStorageKeys.WORDS, JSON.stringify( wordsList ) );
     }
 
     return (
@@ -69,9 +70,9 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
                 <button type='button' onClick={addText} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-text"></span>
                 </button>
-                <button type='button' className={styles[ 'icon-button' ]}>
+                {/* <button type='button' className={styles[ 'icon-button' ]}>
                     <span className="icon icon-star"></span>
-                </button>
+                </button> */}
                 {
                     !_word.pinned && <button type='button' onClick={() => pin( _word )} className={styles[ 'icon-button' ]}>
                         <span className="icon icon-pin"></span>

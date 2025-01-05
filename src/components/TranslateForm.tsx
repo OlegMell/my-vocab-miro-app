@@ -35,12 +35,10 @@ export function TranslateForm( {
     const toRef: any = useRef();
 
     useEffect( () => {
-        console.log( "Debounced:", searchVal );
         setDebounceVal( searchVal );
     }, [ debounceValue ] );
 
     useEffect( () => {
-        console.log( "Submit:", debounceVal );
         if ( debounceVal ) {
             submit( debounceVal );
         }
