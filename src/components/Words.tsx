@@ -7,6 +7,7 @@ import { Word as IWord } from '../app/core/models/word.interface';
 import { Word } from './Word';
 import Link from 'next/link';
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
 
 interface WordsProps {
     readonly words: IWord[];
@@ -40,6 +41,7 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
     }
 
     const goToCards = () => {
+        localStorage.setItem( LocalStorageKeys.WORDS, JSON.stringify( _words ) );
     }
 
     async function pin( word: IWord ) {
@@ -64,17 +66,12 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
 
     }
 
-    const handleAddWordClick = () => {
-        tabsContext.handleTabClick( 1 );
-    }
-
     return (
         <div className='sub-items'>
             <h2 className={`title words-title`}>
                 Words
 
                 <div>
-
                     <Link href='/cards'>
                         <button
                             data-tooltip-id='goToCardsTootip'

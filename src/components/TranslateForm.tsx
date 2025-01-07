@@ -108,7 +108,7 @@ export function TranslateForm( {
         <form>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative' }}>
                 <div className="form-group">
-                    <label htmlFor="select-1">Translate from</label>
+                    {/* <label htmlFor="select-1">Translate from</label> */}
                     <select ref={fromRef} className="select select-small">
                         <option value="en">English</option>
                         <option value="fr">France</option>
@@ -128,8 +128,9 @@ export function TranslateForm( {
                 <button onClick={swap} title='Swap translation' type='button' className={`swap-button`}>
                     <span style={{ 'transform': "rotate(90deg)" }} className="icon icon-fit"></span>
                 </button>
+                <br />
                 <div className="form-group">
-                    <label htmlFor="select-1">Translate to</label>
+                    <label htmlFor="select-1"></label>
                     <select ref={toRef} defaultValue={langTo} className="select select-small">
                         <option value="en">English</option>
                         <option value="fr">France</option>

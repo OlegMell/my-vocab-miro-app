@@ -172,8 +172,8 @@ ul {
   transition: all 0.1s ease;
   position: absolute;
   right: 0px;
-  top: 52%;
-  transform: translateY(-52%);
+  top: 48%;
+  transform: translateY(-48%);
   cursor: pointer;
   z-index: 9;
 
