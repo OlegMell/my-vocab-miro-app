@@ -12,7 +12,7 @@ interface LoaderProps {
 export default function Loader( { fullSize = false }: LoaderProps ): React.ReactElement {
 
     const styles = fullSize
-        ? { width: '100%', height: '100%' }
+        ? { width: '100%', height: '100%', padding: '25px' }
         : { width: '24px', height: '24px' };
 
     return (

@@ -29,7 +29,7 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
         await miro.board.viewport.zoomTo( stickyNote );
     }
 
-    const handleCheck = ( e ) => {
+    const handleCheck = () => {
         let wordsList: any = localStorage.getItem( LocalStorageKeys.WORDS );
         if ( !wordsList ) {
             wordsList = [];
@@ -43,15 +43,17 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
 
     return (
         <li
-            className={`${ styles[ 'clickable-item' ] } ${ styles[ 'actionable' ] } ${ styles[ 'word' ] }  `} key={word._id}>
-
+            className={`${ styles[ 'clickable-item' ] } ${ styles[ 'actionable' ] } ${ styles[ 'word' ] }  `}
+            key={word._id}>
             {
-                _word.pinned && <span
-                    title='Unpin'
-                    aria-label='Unpin'
-                    onClick={() => pin( _word )}
-                    className="animate__animated animate__bounceIn icon icon-pin pinned">
-                </span>
+                _word.pinned && (
+                    <span
+                        title='Unpin'
+                        aria-label='Unpin'
+                        onClick={() => pin( _word )}
+                        className="animate__animated animate__bounceIn icon icon-pin pinned">
+                    </span>
+                )
             }
 
             <label className="checkbox word-checkbox">
@@ -64,23 +66,27 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
             </p>
 
             <div className={`${ styles[ 'item-actions' ] }`}>
-                <button type='button' onClick={addSticky} className={styles[ 'icon-button' ]}>
+                <button title='Insert like sticky on board' type='button' onClick={addSticky} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-sticky"></span>
                 </button>
-                <button type='button' onClick={addText} className={styles[ 'icon-button' ]}>
+                <button title='Insert like text on board' type='button' onClick={addText} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-text"></span>
                 </button>
                 {/* <button type='button' className={styles[ 'icon-button' ]}>
                     <span className="icon icon-star"></span>
                 </button> */}
                 {
-                    !_word.pinned && <button type='button' onClick={() => pin( _word )} className={styles[ 'icon-button' ]}>
+                    !_word.pinned && <button title='pin word' type='button' onClick={() => pin( _word )} className={styles[ 'icon-button' ]}>
                         <span className="icon icon-pin"></span>
                     </button>
                 }
-                <button type='button' onClick={() => onDelete( _word )} className={styles[ 'icon-button' ]}>
+                <button title='remove word' type='button' onClick={() => onDelete( _word )} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-trash"></span>
                 </button>
+
+                <p title='level' style={{ marginLeft: 'auto' }}>
+                    <b>{_word.level}</b>
+                </p>
             </div>
 
         </li>

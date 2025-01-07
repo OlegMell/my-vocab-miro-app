@@ -14,7 +14,7 @@ body {
 #root {
   width: 100%;
   overflow: auto;
-  padding: var(--space-medium);
+  padding: 0 var(--space-small);
 }
 
 img {
@@ -213,7 +213,7 @@ ul {
 .flip-card {
   background-color: transparent;
   width: 300px;
-  height: 200px;
+  height: 70vh;
   border: 1px solid #f1f1f1;
   perspective: 1000px;
   border-radius: 8px;

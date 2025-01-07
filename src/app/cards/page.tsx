@@ -8,6 +8,7 @@ import { Word } from '../core/models/word.interface';
 import { LocalStorageKeys } from '../core/enums/local-storage-keys.enum';
 import Card from '../../components/Card';
 import { Carousel } from 'react-responsive-carousel';
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const TOGGLES = [
@@ -34,13 +35,12 @@ export default function Page() {
         const ls = localStorage.getItem( LocalStorageKeys.WORDS );
         if ( ls ) {
             try {
-                const w = JSON.parse( ls )
-                setWords( w );
+                const _words = JSON.parse( ls )
+                setWords( _words );
 
-                if ( w ) {
-                    setCards( createCards( w, mode ) );
+                if ( _words ) {
+                    setCards( createCards( _words, mode ) );
                 }
-
             } catch ( e ) {
                 console.log( e )
             }
