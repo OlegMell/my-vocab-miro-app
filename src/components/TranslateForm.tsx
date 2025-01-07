@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TranslateRequest } from '../app/core/models/backend/translate-request.interface';
 import { TranslateResponse } from '../app/core/models/backend/translate-response.interface';
-import styles from './styles.module.css';
 import { TranslatedList } from './TranslatedList';
 import { useDebounce } from '../app/core/hooks/useDebouse';
 import { getNavigatorLanguage } from '../app/core/utils';
@@ -86,7 +85,7 @@ export function TranslateForm( {
 
         setTranslated( ttt.translated );
 
-        inpToRef.current.focus();
+        // inpToRef.current.focus();
     }
 
     const swap = () => {

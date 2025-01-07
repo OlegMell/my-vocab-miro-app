@@ -4,8 +4,8 @@ import React, { createContext, useContext } from "react";
 import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
 
 export interface TabsContextProps {
-    activeTab: number;
-    handleTabClick: ( index: number ) => void;
+    readonly activeTab: number;
+    readonly handleTabClick: ( index: number ) => void;
 }
 
 const TabsContext = createContext<TabsContextProps>( {} as TabsContextProps )
@@ -20,6 +20,9 @@ export function TabsProvider( { children }: { children: any } ): React.ReactElem
 
     const handleTabClick = ( index: number ) => {
         localStorage.removeItem( LocalStorageKeys.SELECTED_USER );
+        if ( index !== 1 ) {
+            localStorage.removeItem( LocalStorageKeys.TOPIC_ID );
+        }
         setActiveTab( index );
     }
 

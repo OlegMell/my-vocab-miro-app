@@ -6,5 +6,6 @@ export interface Word {
     lang: string;
     level: string;
     pinned: boolean;
-    marcked: boolean;
+    marked: boolean;
+    topicId: string;
 }

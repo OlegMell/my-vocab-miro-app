@@ -61,6 +61,7 @@
 
 .topic {
     background-color: var(--blue100);
+    filter: brightness(98%);
 }
 
 .word {

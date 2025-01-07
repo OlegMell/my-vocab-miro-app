@@ -6,10 +6,10 @@ import Image from 'next/image';
 import loaderIco from './../assets/ico/loader.svg';
 
 interface LoaderProps {
-    readonly fullSize: boolean;
+    readonly fullSize?: boolean;
 }
 
-export default function Loader( { fullSize }: LoaderProps ): React.ReactElement {
+export default function Loader( { fullSize = false }: LoaderProps ): React.ReactElement {
 
     const styles = fullSize
         ? { width: '100%', height: '100%' }

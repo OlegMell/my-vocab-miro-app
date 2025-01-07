@@ -6,13 +6,12 @@ import { Word } from '../app/core/models/word.interface';
 import { Words } from './Words';
 import { WordsRequest } from '../app/core/models/backend/words-request.interface';
 import styles from './styles.module.css';
-import loaderIco from './../assets/ico/loader.svg';
-import Image from 'next/image';
+import Loader from './Loader';
 
 interface TopicItemProps {
     readonly topic: Topic;
     readonly userId?: string;
-    addWordClicked?: () => void;
+    addWordClicked?: ( topic?: Topic ) => void;
 }
 
 export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): React.ReactElement {
@@ -26,11 +25,17 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
         const res = await fetch( `/api/words?topicId=${ topic._id }${ userId ? `&userId=${ userId }` : '' } `, );
         const words: WordsRequest = await res.json();
 
-        if ( words && words.data && words.data.length ) {
+        if ( words && words.data ) {
             setWords( words.data );
         }
 
         setFetching( false );
+    }
+
+    function handleAddWordClick(): void {
+        if ( addWordClicked ) {
+            addWordClicked( topic );
+        }
     }
 
     return (
@@ -40,7 +45,7 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
                 onClick={handleTopicClick}>{topic.name}
 
                 <div className={`${ styles[ 'item-actions' ] }`}>
-                    {fetching && <Image className='rotation' src={loaderIco} alt='loader icon' />}
+                    {fetching && <Loader />}
                 </div>
 
             </li>
@@ -48,6 +53,15 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
                 !!words && words.length ? (
                     <Words addWordClicked={addWordClicked} words={words!} />
                 ) : ''
+            } {
+                ( words && !words.length && !fetching ) && (
+                    <p style={{ fontSize: '1.1rem', paddingLeft: '20px', display: 'flex', alignItems: 'center', gap: '18px' }}>
+                        <i>No words were added to this topic!</i>
+                        <button
+                            onClick={handleAddWordClick}
+                            className='button button-small button-primary'>Add word</button>
+                    </p>
+                )
             }
         </>
     )

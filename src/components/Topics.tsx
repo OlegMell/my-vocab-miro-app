@@ -7,7 +7,7 @@ import { Topic } from '../app/core/models/topic.interface';
 interface TopicsProps {
     readonly topics: Topic[];
     readonly userId?: string;
-    addWordClicked?: () => void;
+    addWordClicked?: (topic?: Topic) => void;
 }
 
 export function Topics( { topics, userId, addWordClicked }: TopicsProps ): React.ReactElement {

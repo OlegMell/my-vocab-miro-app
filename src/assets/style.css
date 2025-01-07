@@ -276,6 +276,10 @@ ul {
   align-items: center;
 }
 
+.tabs {
+  background: #ebebef;
+}
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);

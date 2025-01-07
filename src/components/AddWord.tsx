@@ -1,19 +1,20 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TranslateForm } from './TranslateForm';
 import { User } from '../app/core/models/user.inteface';
 import { Topic } from '../app/core/models/topic.interface';
 import { useTabsContext } from './TabsProvider';
+import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
+import { addWordRequest } from '../app/lib/addWord';
 
 export interface AddWordProps {
-    user: User;
-    topics: Topic[];
-    addedCallback?: () => Promise<void>;
+    readonly user: User;
+    readonly topics: Topic[];
+    readonly addedCallback?: () => Promise<void>;
 }
 
 export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.ReactElement {
-
     const [ word, setWord ] = useState<string>( '' );
     const [ translation, setTranslation ] = useState<string>( '' );
     const [ lang, setLang ] = useState<string>( '' );
@@ -21,27 +22,27 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
     const topicRef = useRef<HTMLSelectElement>( null );
     const levelRef = useRef<HTMLSelectElement>( null );
 
+    useEffect( () => {
+        const topicId = localStorage.getItem( LocalStorageKeys.TOPIC_ID );
+        if ( topicId ) {
+            topicRef.current!.value = topicId;
+        }
+    }, [] )
+
     const tabsContext = useTabsContext();
 
     const addWord = async () => {
+        await addWordRequest( {
+            word,
+            lang,
+            translation,
+            level: levelRef.current?.value,
+            pinned: false,
+            marked: false,
+            topicId: topicRef.current?.value
+        }, localStorage.getItem( LocalStorageKeys.SELECTED_USER ) ?? user._id, );
 
-        const body = {
-            word: {
-                word,
-                lang,
-                translation,
-                level: levelRef.current?.value,
-                pinned: false,
-                marked: false,
-                userId: localStorage.getItem( 'SELECTED_USER' ) ?? user._id,
-                topicId: topicRef.current?.value
-            },
-        };
-
-        const res = await fetch( '/api/words', {
-            body: JSON.stringify( body ),
-            method: 'POST',
-        } );
+        localStorage.removeItem( LocalStorageKeys.TOPIC_ID );
 
         if ( addedCallback ) {
             addedCallback();
@@ -88,6 +89,8 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
                     <option value="C1">C1</option>
                 </select>
             </div>
+
+            <hr />
 
             <TranslateForm
                 onWordChange={handleWordChange}
