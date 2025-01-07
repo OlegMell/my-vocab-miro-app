@@ -7,6 +7,7 @@ import styles from './styles.module.css';
 import AddStudent from './AddStudent';
 import { findStudents } from '../app/lib/findUser';
 import Loader from './Loader';
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export function Students(): React.ReactElement {
     const [ showAddStudenForm, setShowAddStudentForm ] = useState( false );
@@ -14,15 +15,15 @@ export function Students(): React.ReactElement {
     const [ fetching, setFetching ] = useState<boolean>( false );
 
     useEffect( () => {
-        updateStudent();
+        fetchStudent();
     }, [] );
 
     const handleAddedStudent = async () => {
         setShowAddStudentForm( false );
-        updateStudent();
+        fetchStudent();
     }
 
-    const updateStudent = async () => {
+    const fetchStudent = async () => {
         setFetching( true );
         const res = await findStudents().catch( () => setFetching( false ) );
         setStudents( res.data.students );
@@ -38,6 +39,7 @@ export function Students(): React.ReactElement {
                     {( fetching && _students ) && <Loader fullSize={false} />}
 
                     <button
+                        data-tooltip-id='addStudentTooltip'
                         onClick={() => setShowAddStudentForm( !showAddStudenForm )}
                         type='button'
                         className={styles[ 'icon-button' ]}>
@@ -54,7 +56,7 @@ export function Students(): React.ReactElement {
                     {
                         _students
                             ? _students.map( student => <StudentItem
-                                updateStudents={updateStudent}
+                                updateStudents={fetchStudent}
                                 key={student._id}
                                 student={student} /> )
                             : !fetching ? <li>No students</li> : ''
@@ -62,6 +64,13 @@ export function Students(): React.ReactElement {
                 </ul>
             }
             {( fetching && !_students ) && < Loader fullSize={true} />}
+
+            <ReactTooltip
+                id="addStudentTooltip"
+                place="bottom"
+                content="Add student"
+                style={{ backgroundColor: '#090909', color: '#fff' }}
+            />
         </>
     );
 }

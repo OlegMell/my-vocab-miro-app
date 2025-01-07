@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styles from './styles.module.css';
 import { Word as IWord } from '../app/core/models/word.interface';
 import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 export interface WordProps {
     readonly word: IWord;
@@ -66,21 +67,21 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
             </p>
 
             <div className={`${ styles[ 'word-item-actions' ] }`}>
-                <button title='Insert like sticky on board' type='button' onClick={addSticky} className={styles[ 'icon-button' ]}>
+                <button data-tooltip-id='stickyTooltip' type='button' onClick={addSticky} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-sticky"></span>
                 </button>
-                <button title='Insert like text on board' type='button' onClick={addText} className={styles[ 'icon-button' ]}>
+                <button data-tooltip-id='textTooltip' type='button' onClick={addText} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-text"></span>
                 </button>
                 {/* <button type='button' className={styles[ 'icon-button' ]}>
                     <span className="icon icon-star"></span>
                 </button> */}
                 {
-                    !_word.pinned && <button title='pin word' type='button' onClick={() => pin( _word )} className={styles[ 'icon-button' ]}>
+                    !_word.pinned && <button data-tooltip-id='pinTooltip' type='button' onClick={() => pin( _word )} className={styles[ 'icon-button' ]}>
                         <span className="icon icon-pin"></span>
                     </button>
                 }
-                <button title='remove word' type='button' onClick={() => onDelete( _word )} className={styles[ 'icon-button' ]}>
+                <button data-tooltip-id='removeTooltip' type='button' onClick={() => onDelete( _word )} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-trash"></span>
                 </button>
 
@@ -88,6 +89,36 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
                     <b>{_word.level}</b>
                 </p>
             </div>
+
+
+            <ReactTooltip
+                id="stickyTooltip"
+                place="top"
+                content="Create sticky"
+                style={{ backgroundColor: '#090909', color: '#fff' }}
+            />
+
+            <ReactTooltip
+                id="textTooltip"
+                place="top"
+                content="Create text"
+                style={{ backgroundColor: '#090909', color: '#fff' }}
+            />
+
+            <ReactTooltip
+                id="removeTooltip"
+                place="top"
+                content="Remove word"
+                style={{ backgroundColor: '#090909', color: '#fff' }}
+            />
+
+
+            <ReactTooltip
+                id="pinTooltip"
+                place="top"
+                content="Pin word"
+                style={{ backgroundColor: '#090909', color: '#fff' }}
+            />
 
         </li>
     )

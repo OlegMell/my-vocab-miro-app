@@ -6,6 +6,7 @@ import { useTabsContext } from './TabsProvider';
 import { Word as IWord } from '../app/core/models/word.interface';
 import { Word } from './Word';
 import Link from 'next/link';
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 interface WordsProps {
     readonly words: IWord[];
@@ -76,7 +77,7 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
 
                     <Link href='/cards'>
                         <button
-                            title='Flash cards'
+                            data-tooltip-id='goToCardsTootip'
                             aria-label='Flash cards'
                             type='button'
                             onClick={goToCards}
@@ -86,7 +87,7 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
                     </Link>
 
                     <button
-                        title='Shuffle words'
+                        data-tooltip-id='shuffleTooltip'
                         aria-label='Shuffle words'
                         type='button'
                         onClick={shuffleWords}
@@ -97,6 +98,7 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
                     {
                         addWordClicked ? <button
                             type='button'
+                            data-tooltip-id='addWordTooltip'
                             onClick={addWordClicked}
                             className={styles[ 'icon-button' ]}>
                             <span className="icon icon-plus"></span>
@@ -124,12 +126,33 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
                 )
             }
 
-            <button
+            {/* <button
                 onClick={handleAddWordClick}
                 type='button'
                 className={`button button-primary ${ styles[ 'sticky-bottom' ] }`}>
                 Add word
-            </button>
+            </button> */}
+
+            <ReactTooltip
+                id="goToCardsTootip"
+                place="bottom"
+                content="Learn by cards"
+                style={{ backgroundColor: '#090909', color: '#fff' }}
+            />
+
+            <ReactTooltip
+                id="shuffleTooltip"
+                place="bottom"
+                content="Shuffle words"
+                style={{ backgroundColor: '#090909', color: '#fff' }}
+            />
+
+            <ReactTooltip
+                id="addWordTooltip"
+                place="bottom"
+                content="Add word"
+                style={{ backgroundColor: '#090909', color: '#fff' }}
+            />
         </div>
     );
 }
