@@ -5,7 +5,6 @@ import styles from './styles.module.css';
 import { useTabsContext } from './TabsProvider';
 import { Word as IWord } from '../app/core/models/word.interface';
 import { Word } from './Word';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 interface WordsProps {
@@ -18,8 +17,6 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
     const [ _words, setWords ] = React.useState( words );
 
     const tabsContext = useTabsContext();
-
-    // const router = useRouter();
 
     const handleDelete = async ( word: IWord ) => {
         const res = await fetch( `api/words?id=${ word._id }`, {
@@ -64,6 +61,10 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
             setWords( [ ...copy ] );
         }
 
+    }
+
+    const handleAddWordClick = () => {
+        tabsContext.handleTabClick( 1 );
     }
 
     return (
@@ -123,11 +124,12 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
                 )
             }
 
-            <Link href={'/add-word'}>
-                <button type='button' className={`button button-primary ${ styles[ 'sticky-bottom' ] }`}>
-                    Add word
-                </button>
-            </Link>
+            <button
+                onClick={handleAddWordClick}
+                type='button'
+                className={`button button-primary ${ styles[ 'sticky-bottom' ] }`}>
+                Add word
+            </button>
         </div>
     );
 }

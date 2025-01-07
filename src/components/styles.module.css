@@ -36,6 +36,7 @@
     position: fixed;
     bottom: 25px;
     right: 25px;
+    z-index: 99999;
 }
 
 .students {
@@ -81,10 +82,14 @@
     justify-content: space-between;
 }
 
-.item-actions {
+.item-actions,
+.word-item-actions {
     display: flex;
     justify-content: space-between;
     gap: 5px;
     align-items: center;
+}
+
+.word-item-actions {
     width: 100%;
 }

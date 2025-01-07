@@ -85,12 +85,13 @@ export default function Page() {
 
             {
                 words && words.length ? (
-
                     <>
+                        <h4>Mode</h4>
                         <ActionPanel handleClick={changeMode} actions={TOGGLES} />
+
                         <div>
                             <Carousel
-                                width={'300px'}
+                                width={'100%'}
                                 useKeyboardArrows={true}
                                 showStatus={false}
                                 showThumbs={false}

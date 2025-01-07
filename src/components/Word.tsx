@@ -65,7 +65,7 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
                 <b>{_word.word}</b> - {_word.translation}
             </p>
 
-            <div className={`${ styles[ 'item-actions' ] }`}>
+            <div className={`${ styles[ 'word-item-actions' ] }`}>
                 <button title='Insert like sticky on board' type='button' onClick={addSticky} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-sticky"></span>
                 </button>
