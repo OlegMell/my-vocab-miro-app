@@ -5,7 +5,6 @@ import { addUserToDB } from '../app/lib/addUser';
 import { useForm } from 'react-hook-form';
 
 export default function Welcome( { userId, updateUser }: any ): React.ReactElement {
-
     const [ error, setError ] = useState<string | undefined>();
 
     const {

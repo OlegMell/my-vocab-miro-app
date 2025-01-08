@@ -8,7 +8,6 @@ import Welcome from './Welcome';
 import { findUserByUserId } from '../app/lib/findUser';
 
 export default function Home( { user, userId }: any ): ReactElement {
-
     const [ currentUser, setCurrentUser ] = useState( user !== 'null' ? JSON.parse( user ) : undefined );
 
     const updateUser = async () => {

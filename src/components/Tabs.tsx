@@ -21,22 +21,21 @@ const getTabs = ( userType: string ) => {
 }
 
 export function Tabs( { userType }: { userType: string } ): React.ReactElement {
-
-    let { activeTab, handleTabClick } = useTabsContext();
+    const { activeTab, handleTabClick } = useTabsContext();
 
     return (
         <div style={{ marginBottom: '10px' }} className="tabs">
             <div className="tabs-header-list">
                 {
-                    getTabs( userType ).map( ( tab, index ) => (
-                        <div
-                            key={tab.id}
-                            onClick={() => handleTabClick( tab.id )}
-                            className={`tab ${ activeTab === tab.id ? 'tab-active' : '' }`}
-                        >
-                            <div className='tab-text'>{tab.name}</div>
-                        </div>
-                    ) )
+                    getTabs( userType )
+                        .map( ( tab ) => (
+                            <div
+                                key={tab.id}
+                                onClick={() => handleTabClick( tab.id )}
+                                className={`tab ${ activeTab === tab.id ? 'tab-active' : '' }`}>
+                                <div className='tab-text'>{tab.name}</div>
+                            </div>
+                        ) )
                 }
             </div>
         </div>

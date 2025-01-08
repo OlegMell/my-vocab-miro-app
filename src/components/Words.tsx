@@ -1,35 +1,32 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import styles from './styles.module.css';
-import { useTabsContext } from './TabsProvider';
 import { Word as IWord } from '../app/core/models/word.interface';
 import { Word } from './Word';
-import Link from 'next/link';
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
+import { shuffle } from '../app/core/utils';
+import { pinWord } from '../app/lib/pinWord';
+import { deleteWord } from '../app/lib/deleteWord';
 
 interface WordsProps {
     readonly words: IWord[];
-    addWordClicked?: () => void;
+    readonly addWordClicked?: () => void;
 }
 
 export function Words( { words, addWordClicked }: WordsProps ): React.ReactElement {
 
     const [ _words, setWords ] = React.useState( words );
 
-    const tabsContext = useTabsContext();
-
     const handleDelete = async ( word: IWord ) => {
-        const res = await fetch( `api/words?id=${ word._id }`, {
-            method: 'DELETE'
-        } );
+        const res = await deleteWord( word._id );
 
-        const tmp = await res.json();
-
-        if ( tmp && tmp.data ) {
+        const responseJson = await res.json(); ``
+        if ( responseJson && responseJson.data ) {
             const copy = [ ..._words ];
-            const index = copy.findIndex( ( w: IWord ) => w._id === tmp.data );
+            const index = copy.findIndex( ( w: IWord ) => w._id === responseJson.data );
             copy.splice( index, 1 );
             setWords( [ ...copy ] );
         }
@@ -41,29 +38,22 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
     }
 
     const goToCards = () => {
-        localStorage.setItem( LocalStorageKeys.WORDS, JSON.stringify( _words ) );
+        try {
+            localStorage.setItem( LocalStorageKeys.WORDS, JSON.stringify( _words ) );
+        } catch ( e ) {
+            alert( 'Something went wrong!' );
+        }
     }
 
     async function pin( word: IWord ) {
+        const res = await pinWord( word );
 
-        const body = {
-            wordId: word._id,
-            pinned: !word.pinned
-        };
-
-        const res = await fetch( 'api/pin-word', {
-            body: JSON.stringify( body ),
-            method: 'PATCH'
-        } );
-
-        const tmp = await res.json();
-
-        if ( tmp && tmp.data ) {
+        const updatedWord = await res.json();
+        if ( updatedWord && updatedWord.data ) {
             const copy = [ ..._words ];
-            copy.find( ( w: IWord ) => w._id === tmp.data )!.pinned = !word.pinned;
+            copy.find( ( w: IWord ) => w._id === updatedWord.data )!.pinned = !word.pinned;
             setWords( [ ...copy ] );
         }
-
     }
 
     return (
@@ -123,13 +113,6 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
                 )
             }
 
-            {/* <button
-                onClick={handleAddWordClick}
-                type='button'
-                className={`button button-primary ${ styles[ 'sticky-bottom' ] }`}>
-                Add word
-            </button> */}
-
             <ReactTooltip
                 id="goToCardsTootip"
                 place="bottom"
@@ -152,19 +135,4 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
             />
         </div>
     );
-}
-
-function shuffle( words: IWord[], excludePinned = true ): IWord[] {
-    let pinnedwords: IWord[] = [];
-
-    if ( excludePinned ) {
-        pinnedwords = words.filter( w => w.pinned );
-    }
-
-    const shuffled = [ ...words.filter( w => !w.pinned ) ];
-    for ( let i = shuffled.length - 1; i > 0; i-- ) {
-        const j = Math.floor( Math.random() * ( i + 1 ) );
-        [ shuffled[ i ], shuffled[ j ] ] = [ shuffled[ j ], shuffled[ i ] ];
-    }
-    return [ ...pinnedwords, ...shuffled ];
 }

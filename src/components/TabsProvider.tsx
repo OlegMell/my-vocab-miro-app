@@ -8,7 +8,7 @@ export interface TabsContextProps {
     readonly handleTabClick: ( index: number ) => void;
 }
 
-const TabsContext = createContext<TabsContextProps>( {} as TabsContextProps )
+const TabsContext = createContext<TabsContextProps>( {} as TabsContextProps );
 
 export function useTabsContext() {
     return useContext( TabsContext );
@@ -20,9 +20,6 @@ export function TabsProvider( { children }: { children: any } ): React.ReactElem
 
     const handleTabClick = ( index: number ) => {
         localStorage.removeItem( LocalStorageKeys.SELECTED_USER );
-        if ( index !== 1 ) {
-            localStorage.removeItem( LocalStorageKeys.TOPIC_ID );
-        }
         setActiveTab( index );
     }
 

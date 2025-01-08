@@ -1,16 +1,17 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { TranslateRequest } from '../app/core/models/backend/translate-request.interface';
 import { TranslateResponse } from '../app/core/models/backend/translate-response.interface';
 import { TranslatedList } from './TranslatedList';
 import { useDebounce } from '../app/core/hooks/useDebouse';
 import { getNavigatorLanguage } from '../app/core/utils';
+import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
+import { getTranslation } from '../app/lib/getTranslation';
 
 export interface TranslateFormProps {
-    onWordChange: ( word: string ) => void;
-    onTranslationChange: ( translation: string ) => void;
-    onLangChange: ( lang: string ) => void;
+    readonly onWordChange: ( word: string ) => void;
+    readonly onTranslationChange: ( translation: string ) => void;
+    readonly onLangChange: ( lang: string ) => void;
 }
 
 export function TranslateForm( {
@@ -34,6 +35,12 @@ export function TranslateForm( {
     const toRef: any = useRef();
 
     useEffect( () => {
+        return () => {
+            localStorage.removeItem( LocalStorageKeys.TOPIC_ID );
+        }
+    }, [] );
+
+    useEffect( () => {
         setDebounceVal( searchVal );
     }, [ debounceValue ] );
 
@@ -49,21 +56,12 @@ export function TranslateForm( {
 
     const submit = async ( value: string ) => {
 
-        const body: string = JSON.stringify( {
-            text: value,
-            to: toRef.current?.value,
-            from: fromRef.current?.value
-        } as TranslateRequest );
+        const res = await getTranslation( value, fromRef.current?.value, toRef.current?.value );
 
-        const res = await fetch( '/api/translate', {
-            body,
-            method: 'POST',
-        } );
+        const translateResponse: TranslateResponse = await res.json();
 
-        const ttt: TranslateResponse = await res.json();
-
-        if ( ttt.raw && ttt.raw.length && ttt.raw[ 1 ] ) {
-            const parts = ttt.raw[ 1 ];
+        if ( translateResponse.raw && translateResponse.raw.length && translateResponse.raw[ 1 ] ) {
+            const parts = translateResponse.raw[ 1 ];
 
             const partsTmp = [];
 
@@ -80,10 +78,10 @@ export function TranslateForm( {
         }
 
         onWordChange( value );
-        onTranslationChange( ttt.translated );
+        onTranslationChange( translateResponse.translated );
         onLangChange( fromRef.current.value );
 
-        setTranslated( ttt.translated );
+        setTranslated( translateResponse.translated );
 
         // inpToRef.current.focus();
     }
@@ -108,7 +106,6 @@ export function TranslateForm( {
         <form>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative' }}>
                 <div className="form-group">
-                    {/* <label htmlFor="select-1">Translate from</label> */}
                     <select ref={fromRef} className="select select-small">
                         <option value="en">English</option>
                         <option value="fr">France</option>
@@ -130,8 +127,8 @@ export function TranslateForm( {
                 </button>
                 <br />
                 <div className="form-group">
-                    <label htmlFor="select-1"></label>
-                    <select ref={toRef} defaultValue={langTo} className="select select-small">
+                    <label htmlFor="translation"></label>
+                    <select id='translation' ref={toRef} defaultValue={langTo} className="select select-small">
                         <option value="en">English</option>
                         <option value="fr">France</option>
                         <option value="ru">Russian</option>
