@@ -71,7 +71,6 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
 
     return (
         <>
-
             <div className="form-group">
                 <label htmlFor="topic">Topic</label>
                 <select ref={topicRef} className="select select-small" id='topic'>

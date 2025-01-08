@@ -55,7 +55,6 @@ export function TranslateForm( {
     };
 
     const submit = async ( value: string ) => {
-
         const res = await getTranslation( value, fromRef.current?.value, toRef.current?.value );
 
         const translateResponse: TranslateResponse = await res.json();

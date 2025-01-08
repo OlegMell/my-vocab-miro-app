@@ -3,13 +3,16 @@
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import ActionPanel from '../../components/ActionPanel';
+import { Tooltip as ReactTooltip } from "react-tooltip";
 import '../../assets/style.css';
 import { Word } from '../core/models/word.interface';
 import { LocalStorageKeys } from '../core/enums/local-storage-keys.enum';
 import Card from '../../components/Card';
 import { Carousel } from 'react-responsive-carousel';
+import styles from './../../components/styles.module.css';
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { shuffle } from '../core/utils';
 
 const TOGGLES = [
     {
@@ -75,6 +78,12 @@ export default function Page() {
         }
     }
 
+    const shuffleWords = () => {
+        const shuffledWords = shuffle( words );
+        setWords( shuffledWords );
+        setCards( createCards( words, mode ) );
+    }
+
     return (
         <div className='cards-page'>
 
@@ -86,8 +95,24 @@ export default function Page() {
             {
                 words && words.length ? (
                     <>
-                        <h4>Mode</h4>
-                        <ActionPanel handleClick={changeMode} actions={TOGGLES} />
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                            <div>
+                                <h4>Mode</h4>
+                                <ActionPanel handleClick={changeMode} actions={TOGGLES} />
+                            </div>
+
+                            <div>
+                                <button
+                                    data-tooltip-id='shuffleTooltip'
+                                    aria-label='Shuffle words'
+                                    type='button'
+                                    onClick={shuffleWords}
+                                    className={styles[ 'icon-button' ]}>
+                                    <span className="icon icon-shuffle"></span>
+                                </button>
+                            </div>
+
+                        </div>
 
                         <div>
                             <Carousel
@@ -110,6 +135,13 @@ export default function Page() {
                 )
                     : <p>No words were choosen</p>
             }
+
+            <ReactTooltip
+                id="shuffleTooltip"
+                place="bottom"
+                content="Shuffle cards"
+                style={{ backgroundColor: '#090909', color: '#fff' }}
+            />
 
         </div>
     )
