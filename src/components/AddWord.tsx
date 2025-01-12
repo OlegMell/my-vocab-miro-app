@@ -74,7 +74,7 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
     }
 
     return (
-        <>
+        <div className='add-word-page'>
             <div className="form-group">
                 <label htmlFor="topic">Topic</label>
                 <select ref={topicRef} className="select select-small" id='topic'>
@@ -103,8 +103,8 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
 
             <button
                 onClick={addWord}
-                style={{ position: 'fixed', bottom: '40px', left: '20px', right: '20px' }}
+                style={{ position: 'fixed', bottom: '55px', left: '20px', right: '20px' }}
                 className='button button-primary'>Add to vocab</button>
-        </>
+        </div>
     )
 }

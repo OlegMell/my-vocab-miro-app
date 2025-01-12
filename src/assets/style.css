@@ -293,6 +293,10 @@ ul {
   background: #ebebef;
 }
 
+.add-word-page {
+  padding-bottom: 50px;
+}
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);
