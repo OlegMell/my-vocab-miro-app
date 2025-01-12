@@ -12,6 +12,7 @@ import { Carousel } from 'react-responsive-carousel';
 import styles from './../../components/styles.module.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { shuffle } from '../core/utils';
+import { Footer } from '../../components/Footer';
 
 const TOGGLES = [
     {
@@ -142,6 +143,8 @@ export default function Page() {
                 )
                     : <p>No words were choosen</p>
             }
+
+            <Footer />
 
             <ReactTooltip
                 id="shuffleTooltip"

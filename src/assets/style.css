@@ -17,6 +17,19 @@ body {
   padding: 0 var(--space-small);
 }
 
+.footer {
+  align-items: center;
+  background-color: white;
+  bottom: 0;
+  box-shadow: 0 2px 4px rgba(5, 0, 56, .9);
+  display: flex;
+  justify-content: flex-end;
+  left: 0;
+  padding: 10px 8px;
+  position: absolute;
+  right: 0;
+}
+
 img {
   max-width: 100%;
   height: auto;

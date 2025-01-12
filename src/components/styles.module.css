@@ -34,7 +34,7 @@
 
 .sticky-bottom {
     position: fixed;
-    bottom: 25px;
+    bottom: 45px;
     right: 25px;
     z-index: 99999;
 }

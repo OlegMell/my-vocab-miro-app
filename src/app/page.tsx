@@ -6,6 +6,7 @@ import '../assets/style.css';
 import initMiroAPI from '../utils/initMiroAPI';
 import { getUserByMiroUserId } from './core/server';
 import Home from '../components/Home';
+import { Footer } from '../components/Footer';
 
 const getBoards = async () => {
   const { miro, userId } = initMiroAPI();
@@ -55,6 +56,7 @@ export default async function Page() {
             <Home user={JSON.stringify( currentUser )} userId={userId} />
           )
       }
+      <Footer />
     </div >
   );
 }
