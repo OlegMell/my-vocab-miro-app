@@ -6,6 +6,7 @@ import { Tabs } from './Tabs';
 import { PageContent } from './PageContent';
 import Welcome from './Welcome';
 import { findUserByUserId } from '../app/lib/findUser';
+import { ErrorBoundary } from 'react-error-boundary';
 
 export default function Home( { user, userId }: any ): ReactElement {
     const [ currentUser, setCurrentUser ] = useState( user !== 'null' ? JSON.parse( user ) : undefined );
@@ -19,19 +20,21 @@ export default function Home( { user, userId }: any ): ReactElement {
 
     return (
         <>
-            {
-                currentUser ? (
-                    <TabsProvider>
-                        <Tabs userType={currentUser.type} />
-                        <PageContent userSerialized={JSON.stringify( currentUser )} />
-                    </TabsProvider>
-                ) : (
-                    <Welcome
-                        updateUser={updateUser}
-                        userId={userId}
-                    />
-                )
-            }
+            <ErrorBoundary fallback={<div>Cought error</div>}>
+                {
+                    currentUser ? (
+                        <TabsProvider>
+                            <Tabs userType={currentUser.type} />
+                            <PageContent userSerialized={JSON.stringify( currentUser )} />
+                        </TabsProvider>
+                    ) : (
+                        <Welcome
+                            updateUser={updateUser}
+                            userId={userId}
+                        />
+                    )
+                }
+            </ErrorBoundary>
         </>
     )
 }
