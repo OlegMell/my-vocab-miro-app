@@ -32,6 +32,10 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
     const tabsContext = useTabsContext();
 
     const addWord = async () => {
+        if ( !word || translation ) {
+            return;
+        }
+
         await addWordRequest( {
             word,
             lang,

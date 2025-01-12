@@ -10,7 +10,6 @@ import { LocalStorageKeys } from '../core/enums/local-storage-keys.enum';
 import Card from '../../components/Card';
 import { Carousel } from 'react-responsive-carousel';
 import styles from './../../components/styles.module.css';
-
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { shuffle } from '../core/utils';
 
@@ -30,7 +29,7 @@ const TOGGLES = [
 export default function Page() {
     const [ mode, setMode ] = useState<string>( 'word' );
     const [ words, setWords ] = useState<Word[]>( [] );
-    const [ cards, setCards ] = useState<{ frontSide: string, backSide: string }[]>( [] );
+    const [ cards, setCards ] = useState<{ id: string, frontSide: string, backSide: string }[]>( [] );
 
     const router = useRouter();
 
@@ -64,6 +63,7 @@ export default function Page() {
         if ( mode === 'word' ) {
             return words.map( ( w: Word ) => {
                 return {
+                    id: w._id,
                     frontSide: w.word,
                     backSide: w.translation
                 }
@@ -71,11 +71,16 @@ export default function Page() {
         } else {
             return words.map( ( w: Word ) => {
                 return {
+                    id: w._id,
                     frontSide: w.translation,
                     backSide: w.word
                 }
             } );
         }
+    }
+
+    const onRemove = ( id: string ) => {
+        setCards( createCards( words.filter( w => w._id !== id ), mode ) );
     }
 
     const shuffleWords = () => {
@@ -124,6 +129,8 @@ export default function Page() {
                             >
                                 {
                                     cards.map( c => <Card
+                                        onRemove={onRemove}
+                                        id={c.id}
                                         key={c.frontSide}
                                         frontSide={c.frontSide}
                                         backSide={c.backSide}
