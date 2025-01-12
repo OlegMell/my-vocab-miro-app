@@ -8,9 +8,10 @@ export default async function Page() {
                 width: '100vw',
                 height: '100vh',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                whiteSpace: 'pretty'
             }}>
-            <p style={{ width: '300px', fontSize: '2rem' }}>
+            <p style={{ width: '500px', fontSize: '2rem' }}>
                 You have been successfully logged in "My Vocab" Miro App!
                 <br />
                 <i>now you can close this tab and go back to Miro</i>
