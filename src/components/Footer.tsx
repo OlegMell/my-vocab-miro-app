@@ -14,7 +14,7 @@ export const Footer = () => {
                 place="top"
                 style={{ backgroundColor: '#090909', color: '#fff' }}
             >
-                Send feedback and bug reports to: <br /> <a href='mailto:oleg.mell.work@gmail.com'>oleg.mell.work@gmail.com</a>
+                Send feedback and bug reports to: <br /> <a>oleg.mell.work@gmail.com</a>
             </ReactTooltip>
         </div>
     )

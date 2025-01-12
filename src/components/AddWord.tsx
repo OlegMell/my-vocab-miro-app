@@ -103,7 +103,7 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
 
             <button
                 onClick={addWord}
-                style={{ position: 'fixed', bottom: '20px', left: '20px', right: '20px' }}
+                style={{ position: 'fixed', bottom: '40px', left: '20px', right: '20px' }}
                 className='button button-primary'>Add to vocab</button>
         </>
     )
