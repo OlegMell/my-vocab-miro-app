@@ -3,15 +3,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import usersModel from '../../core/models/db/users.model';
 import { User } from '../../core/models/user.inteface';
 import topicModel from '../../core/models/db/topic.model';
-import mongoose from 'mongoose';
 import initMiroAPI from '../../../utils/initMiroAPI';
-
 
 export async function GET( req: NextRequest ) {
     const searchParams = req.nextUrl.searchParams;
     const email = searchParams.get( 'email' );
     const userId = searchParams.get( 'userId' );
-    // const populate = searchParams.get( 'populate' );
 
     let user;
     if ( email ) {
@@ -25,48 +22,37 @@ export async function GET( req: NextRequest ) {
 
 
 /**
- * Add new user
- */
+* Add new user
+*/
 export async function POST( req: NextRequest ) {
     const user: Partial<User> = await req.json();
 
-    // console.log( user )
+    const foundUser = await usersModel.findOne( { email: user.email } ).exec();
 
-    // const foundUser = await usersModel.findOne( { email: user.email } ).exec();
+    if ( foundUser ) {
+        return NextResponse.json( {
+            message: 'failed',
+            error: 'User with such email already exists'
+        }, { status: 400 } );
+    } else {
+        const topics = await topicModel.find().exec();
 
-    // if ( foundUser ) {
-    //     return NextResponse.json( {
-    //         message: 'failed',
-    //         error: 'User with such email already exists'
-    //     }, { status: 400 } );
-    // } else {
-    //     const topics = await topicModel.find().exec();
+        const createdUser = new usersModel( user );
+        createdUser.topics.push( ...topics );
+        await createdUser.save();
 
-    //     const createdUser = new usersModel( {
-    //         ...user,
-    //         topic: [
-    //             topics.map(t => t._id)
-    //         ]
-    //     } );
+        return NextResponse.json( { data: createdUser } );
+    }
 
-    //     await createdUser.save();
+    // const topics = await topicModel.find().exec();
 
-    //     return NextResponse.json( { data: createdUser } );
-    // }
+    // const createdUser = new usersModel( user );
 
+    // createdUser.topics.push( ...topics );
 
-    const topics = await topicModel.find().exec();
+    // await createdUser.save();
 
-
-    console.log( user )
-
-    const createdUser = new usersModel( user );
-
-    createdUser.topics.push( ...topics );
-
-    await createdUser.save();
-
-    return NextResponse.json( { data: createdUser } );
+    // return NextResponse.json( { data: createdUser } );
 
 }
 
@@ -77,14 +63,10 @@ export async function POST( req: NextRequest ) {
 export async function PATCH( req: NextRequest ) {
     const studentId: { id: string } = await req.json();
 
-    console.log( studentId )
-
     const { userId: currentUserId } = initMiroAPI();
 
     const user = await usersModel.findOne( { userId: currentUserId } );
-
     user.students.push( studentId.id );
-
     await user.save();
 
     return NextResponse.json( { data: user, message: 'success' } );
