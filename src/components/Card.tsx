@@ -73,6 +73,9 @@ export default function Card( { id, frontSide, backSide, onRemove }: CardProps )
             <button data-tooltip-id='removeTooltip' type='button' onClick={remove} className={styles[ 'icon-button' ]}>
                 <span className="icon icon-trash"></span>
             </button>
+            <button data-tooltip-id='cardTooltip' style={{ position: 'absolute', right: 0 }} type='button' className={styles[ 'icon-button' ]}>
+                <span className="icon icon-info"></span>
+            </button>
             <div className="flip-card-inner" style={flipped ? { 'transform': 'rotateY(180deg)' } : {}}>
                 <div className="flip-card-front">
                     <p className='text'>{frontSide}</p>
@@ -80,7 +83,6 @@ export default function Card( { id, frontSide, backSide, onRemove }: CardProps )
                 <div className="flip-card-back">
                     <p className='text'>{backSide}</p>
                 </div>
-
             </div>
 
             <ReactTooltip
@@ -101,6 +103,13 @@ export default function Card( { id, frontSide, backSide, onRemove }: CardProps )
                 id="removeTooltip"
                 place="top"
                 content="Remove card"
+                style={{ backgroundColor: '#090909', color: '#fff' }}
+            />
+
+            <ReactTooltip
+                id="cardTooltip"
+                place="top"
+                content="Click on card to see the other side"
                 style={{ backgroundColor: '#090909', color: '#fff' }}
             />
         </div>

@@ -130,6 +130,7 @@ export default function Page() {
                             >
                                 {
                                     cards.map( c => <Card
+                                        data-tooltip-id='cardTooltip'
                                         onRemove={onRemove}
                                         id={c.id}
                                         key={c.frontSide}
@@ -152,6 +153,8 @@ export default function Page() {
                 content="Shuffle cards"
                 style={{ backgroundColor: '#090909', color: '#fff' }}
             />
+
+            
 
         </div>
     )
