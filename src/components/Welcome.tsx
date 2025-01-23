@@ -38,7 +38,7 @@ export default function Welcome( { userId, updateUser }: any ): React.ReactEleme
             <h2>Welcome!</h2>
             <p>Here you can store your vocabulary and learn new words!</p>
             <br />
-            <p>Let me know you better) <br />Please, answer a few questions below:</p>
+            <p>Let me know you better. <br />Please, answer a few questions below:</p>
             <br />
 
             <form

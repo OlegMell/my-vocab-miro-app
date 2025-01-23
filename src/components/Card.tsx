@@ -21,8 +21,19 @@ export default function Card( { id, frontSide, backSide, onRemove }: CardProps )
 
     async function addSticky( e ) {
         e.stopPropagation();
+
+        const position = await miro.board.findEmptySpace( {
+            x: 0,
+            y: 0,
+            width: 200,
+            height: 200,
+        } );
+
         const stickyNote = await miro.board.createStickyNote( {
             content: `${ frontSide } - ${ backSide }`,
+            x: position.x,
+            y: position.y,
+            width: position.width,
         } );
         await miro.board.viewport.zoomTo( stickyNote );
     }
@@ -30,8 +41,18 @@ export default function Card( { id, frontSide, backSide, onRemove }: CardProps )
     async function addText( e ) {
         e.stopPropagation();
 
+        const position = await miro.board.findEmptySpace( {
+            x: 0,
+            y: 0,
+            width: 200,
+            height: 200,
+        } );
+
         const stickyNote = await miro.board.createText( {
             content: `${ frontSide } - ${ backSide }`,
+            x: position.x,
+            y: position.y,
+            width: position.width,
         } );
         await miro.board.viewport.zoomTo( stickyNote );
     }

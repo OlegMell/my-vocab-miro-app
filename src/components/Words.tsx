@@ -64,6 +64,7 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
                 <div>
                     <Link href='/cards'>
                         <button
+                            tabIndex={1}
                             data-tooltip-id='goToCardsTootip'
                             aria-label='Flash cards'
                             type='button'
@@ -74,6 +75,7 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
                     </Link>
 
                     <button
+                        tabIndex={1}
                         data-tooltip-id='shuffleTooltip'
                         aria-label='Shuffle words'
                         type='button'
@@ -83,13 +85,16 @@ export function Words( { words, addWordClicked }: WordsProps ): React.ReactEleme
                     </button>
 
                     {
-                        addWordClicked ? <button
-                            type='button'
-                            data-tooltip-id='addWordTooltip'
-                            onClick={addWordClicked}
-                            className={styles[ 'icon-button' ]}>
-                            <span className="icon icon-plus"></span>
-                        </button> : ''
+                        addWordClicked ? (
+                            <button
+                                tabIndex={1}
+                                type='button'
+                                data-tooltip-id='addWordTooltip'
+                                onClick={addWordClicked}
+                                className={styles[ 'icon-button' ]}>
+                                <span className="icon icon-plus"></span>
+                            </button>
+                        ) : ''
                     }
                 </div>
             </h2>

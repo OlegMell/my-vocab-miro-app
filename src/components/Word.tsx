@@ -17,15 +17,35 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
     const [ _word, setWord ] = useState( word );
 
     async function addSticky() {
+        const position = await miro.board.findEmptySpace( {
+            x: 0,
+            y: 0,
+            width: 200,
+            height: 200,
+        } );
+
         const stickyNote = await miro.board.createStickyNote( {
             content: `${ _word.word } - ${ _word.translation }`,
+            x: position.x,
+            y: position.y,
+            width: position.width,
         } );
         await miro.board.viewport.zoomTo( stickyNote );
     }
 
     async function addText() {
+        const position = await miro.board.findEmptySpace( {
+            x: 0,
+            y: 0,
+            width: 200,
+            height: 200,
+        } );
+
         const stickyNote = await miro.board.createText( {
             content: `${ _word.word } - ${ _word.translation }`,
+            x: position.x,
+            y: position.y,
+            width: position.width,
         } );
         await miro.board.viewport.zoomTo( stickyNote );
     }
@@ -44,11 +64,13 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
 
     return (
         <li
+            tabIndex={1}
             className={`${ styles[ 'clickable-item' ] } ${ styles[ 'actionable' ] } ${ styles[ 'word' ] }  `}
             key={word._id}>
             {
                 _word.pinned && (
                     <span
+                        tabIndex={1}
                         title='Unpin'
                         aria-label='Unpin'
                         onClick={() => pin( _word )}
@@ -57,7 +79,7 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
                 )
             }
 
-            <label className="checkbox word-checkbox">
+            <label tabIndex={1} className="checkbox word-checkbox">
                 <input type="checkbox" onClick={handleCheck} />
                 <span></span>
             </label>
@@ -67,21 +89,21 @@ export function Word( { word, pin, onDelete }: WordProps ): React.ReactElement {
             </p>
 
             <div className={`${ styles[ 'word-item-actions' ] }`}>
-                <button data-tooltip-id='stickyTooltip' type='button' onClick={addSticky} className={styles[ 'icon-button' ]}>
+                <button tabIndex={1} data-tooltip-id='stickyTooltip' type='button' onClick={addSticky} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-sticky"></span>
                 </button>
-                <button data-tooltip-id='textTooltip' type='button' onClick={addText} className={styles[ 'icon-button' ]}>
+                <button tabIndex={1} data-tooltip-id='textTooltip' type='button' onClick={addText} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-text"></span>
                 </button>
                 {/* <button type='button' className={styles[ 'icon-button' ]}>
                     <span className="icon icon-star"></span>
                 </button> */}
                 {
-                    !_word.pinned && <button data-tooltip-id='pinTooltip' type='button' onClick={() => pin( _word )} className={styles[ 'icon-button' ]}>
+                    !_word.pinned && <button tabIndex={1} data-tooltip-id='pinTooltip' type='button' onClick={() => pin( _word )} className={styles[ 'icon-button' ]}>
                         <span className="icon icon-pin"></span>
                     </button>
                 }
-                <button data-tooltip-id='removeTooltip' type='button' onClick={() => onDelete( _word )} className={styles[ 'icon-button' ]}>
+                <button tabIndex={1} data-tooltip-id='removeTooltip' type='button' onClick={() => onDelete( _word )} className={styles[ 'icon-button' ]}>
                     <span className="icon icon-trash"></span>
                 </button>
 

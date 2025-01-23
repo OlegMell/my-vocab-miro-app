@@ -19,7 +19,11 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
     const [ words, setWords ] = useState<Word[] | undefined>( undefined );
     const [ fetching, setFetching ] = React.useState<boolean>( false );
 
-    const handleTopicClick = async () => {
+    const handleTopicClick = async ( e ) => {
+        if ( e.key?.toLowerCase() === 'tab' ) {
+            return;
+        }
+
         setFetching( true );
 
         const res = await fetch( `/api/words?topicId=${ topic._id }${ userId ? `&userId=${ userId }` : '' } `, );
@@ -41,8 +45,10 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
     return (
         <>
             <li
+                tabIndex={1}
+                onKeyUp={( e ) => handleTopicClick( e )}
                 className={`${ styles[ 'clickable-item' ] } ${ styles[ 'actionable' ] } ${ styles[ 'topic' ] }`}
-                onClick={handleTopicClick}>{topic.name}
+                onClick={( e ) => handleTopicClick( e )}>{topic.name}
 
                 <div className={`${ styles[ 'item-actions' ] }`}>
                     {fetching && <Loader />}
@@ -58,6 +64,7 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
                     <p style={{ fontSize: '1.1rem', paddingLeft: '20px', display: 'flex', alignItems: 'center', gap: '18px' }}>
                         <i>No words were added to this topic!</i>
                         <button
+                            tabIndex={1}
                             onClick={handleAddWordClick}
                             className='button button-small button-primary'>Add word</button>
                     </p>

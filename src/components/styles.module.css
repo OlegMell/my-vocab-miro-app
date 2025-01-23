@@ -54,6 +54,16 @@
     padding: 10px;
     list-style: none;
     font-weight: 500;
+    position: relative;
+}
+
+.clickable-item:focus {
+    outline: none;
+}
+
+.clickable-item:focus-visible {
+    border: 4px solid;
+    border-color: var(--blue300);
 }
 
 .student {
