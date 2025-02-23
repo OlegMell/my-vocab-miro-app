@@ -31,10 +31,22 @@ export async function GET( req: NextRequest ) {
 }
 
 export async function DELETE( req: NextRequest ) {
+    if ( !await initMiroAPI()?.miro?.isAuthorized ) {
+        return NextResponse.json( { message: 'no authorized user!' }, { status: 401 } );
+    }
+
     const searchParams = req.nextUrl.searchParams;
     const wordId = searchParams.get( 'id' );
 
-    const word = await wordModel.findOneAndDelete( { _id: wordId } ).exec();
+    const word = await wordModel.findOne( { _id: wordId } ).exec();
+
+    const uid = await initMiroAPI().userId;
+
+    if ( word.userId !== uid ) {
+        return NextResponse.json( { message: 'provided word id is not connected to current user!' }, { status: 240 } );
+    }
+
+    await wordModel.deleteOne( { _id: wordId } ).exec();
 
     return NextResponse.json( { data: wordId } );
 }
@@ -43,9 +55,15 @@ export async function DELETE( req: NextRequest ) {
  * Add new word
  */
 export async function POST( req: NextRequest ) {
+    if ( !await initMiroAPI()?.miro?.isAuthorized ) {
+        return NextResponse.json( { message: 'no authorized user!' }, { status: 401 } );
+    }
+
     const { word } = await req.json();
 
-    console.log( word );
+    if ( await initMiroAPI().userId && await initMiroAPI().userId !== word.userId ) {
+        return NextResponse.json( { message: 'provided user id is not equal to current user!' }, { status: 240 } );
+    }
 
     const createdWord = new wordModel( {
         word: word.word,

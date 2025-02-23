@@ -25,6 +25,11 @@ export async function GET( req: NextRequest ) {
 * Add new user
 */
 export async function POST( req: NextRequest ) {
+
+    if ( !await initMiroAPI()?.miro?.isAuthorized ) {
+        return NextResponse.json( { message: 'no authorized user!' } );
+    }
+
     const user: Partial<User> = await req.json();
 
     const foundUser = await usersModel.findOne( { email: user.email } ).exec();
