@@ -42,7 +42,13 @@ export async function DELETE( req: NextRequest ) {
 
     const uid = await initMiroAPI().userId;
 
-    if ( word.userId !== uid ) {
+    const user = await usersModel.findOne( { _id: word.userId } ).exec();
+
+    if ( !user ) {
+        return NextResponse.json( { message: 'User is not found' }, { status: 404 } );
+    }
+
+    if ( user.userId !== uid ) {
         return NextResponse.json( { message: 'provided word id is not connected to current user!' }, { status: 240 } );
     }
 
@@ -61,7 +67,13 @@ export async function POST( req: NextRequest ) {
 
     const { word } = await req.json();
 
-    if ( await initMiroAPI().userId && await initMiroAPI().userId !== word.userId ) {
+    const user = await usersModel.findOne({ _id: word.userId }).exec();
+
+    if (!user) {
+        return NextResponse.json( { message: 'User is not found' }, { status: 404 } );
+    }
+
+    if ( await initMiroAPI().userId && await initMiroAPI().userId !== user.userId ) {
         return NextResponse.json( { message: 'provided user id is not equal to current user!' }, { status: 240 } );
     }
 
