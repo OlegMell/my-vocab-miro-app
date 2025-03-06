@@ -37,7 +37,7 @@ const getBoards = async () => {
     userId
   };
 };
-
+// test
 export default async function Page() {
   const { userId, authUrl } = await getBoards();
 
