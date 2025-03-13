@@ -13,6 +13,7 @@ const getBoards = async () => {
 
   // redirect to auth url if user has not authorized the app
   if ( !userId || !( await miro.isAuthorized( userId ) ) ) {
+    console.log( miro.getAuthUrl() )
     return {
       authUrl: miro.getAuthUrl(),
     };
@@ -31,17 +32,19 @@ const getBoards = async () => {
     }
   }
 
-
   return {
     boards,
     userId
   };
 };
-// test
+
 export default async function Page() {
   const { userId, authUrl } = await getBoards();
 
   const currentUser = await getUserByMiroUserId( userId! );
+
+  console.log( authUrl )
+  console.log( userId )
 
   return (
     <div>

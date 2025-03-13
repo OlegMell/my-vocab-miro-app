@@ -1,5 +1,5 @@
 import type { NextRequest } from 'next/server';
-import { redirect } from 'next/navigation';
+import { redirect, RedirectType } from 'next/navigation';
 import initMiroAPI from '../../../utils/initMiroAPI';
 
 // handle redirect with code and exchange it for the access token
@@ -8,6 +8,10 @@ export async function GET( request: NextRequest ) {
 
   // Make sure the code is in query parameters
   const code = request.nextUrl.searchParams.get( 'code' );
+  const teamId = request.nextUrl.searchParams.get( 'team_id' );
+
+  console.log( { teamId } )
+
   if ( typeof code !== 'string' ) {
     redirect( '/?missing-code' );
     return;
@@ -18,5 +22,5 @@ export async function GET( request: NextRequest ) {
   } catch ( error ) {
     redirect( '/?error' );
   }
-  redirect( `/success-logged-in` );
+  redirect( `https://miro.com/app-install-completed/?client_id=3458764611114746267&team_id=${ teamId }`);
 }
