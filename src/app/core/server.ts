@@ -15,7 +15,6 @@ const getUserByMiroUserId = async ( userId: string ) => {
 }
 
 const getUserById = async ( userId: string ) => {
-  console.log( 'getUserById', userId )
   return await UserModel.findOne( { _id: new mongoose.Types.ObjectId( userId ) } ).populate( 'topics', {
     model: TopicModel,
   } ).exec();

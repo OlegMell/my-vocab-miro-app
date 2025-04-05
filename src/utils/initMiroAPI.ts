@@ -35,5 +35,6 @@ export default function initMiroAPI() {
     } ),
     // User id might be undefined if the user is not logged in yet, we will know it after the redirect happened
     userId: getCookieValue()?.userId || '',
+    accessToken: getCookieValue()?.accessToken || ''
   };
 }
