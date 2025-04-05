@@ -7,6 +7,7 @@ export async function GET( request: NextRequest ) {
   const { miro, userId } = initMiroAPI();
 
   // Make sure the code is in query parameters
+  console.log( request.nextUrl.searchParams.get( 'client_id' ) );
   const code = request.nextUrl.searchParams.get( 'code' );
   const teamId = request.nextUrl.searchParams.get( 'team_id' );
 
@@ -16,8 +17,7 @@ export async function GET( request: NextRequest ) {
   }
 
   try {
-    const token = await miro.exchangeCodeForAccessToken( userId, code );
-    console.log( { token } );
+    await miro.exchangeCodeForAccessToken( userId, code );
   } catch ( error ) {
     redirect( '/?error' );
   }

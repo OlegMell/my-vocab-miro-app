@@ -7,7 +7,7 @@ import initMiroAPI from '../../../utils/initMiroAPI';
 export async function POST( req: NextRequest ) {
     const { userId: currentUserId, accessToken } = initMiroAPI();
 
-    if ( !currentUserId?.trim() || !accessToken?.trim() ) {
+    if ( !currentUserId?.trim() ) {
         return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
     } else if ( !accessToken?.trim() ) {
         return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );

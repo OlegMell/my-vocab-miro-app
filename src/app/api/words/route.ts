@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import TopicModel from './../../core/models/db/topic.model';
 import wordModel from '../../core/models/db/word.model';
 import { WordsRequest } from '../../core/models/backend/words-request.interface';
 import initMiroAPI from '../../../utils/initMiroAPI';
@@ -10,7 +9,7 @@ export async function GET( req: NextRequest ) {
 
     const { userId: currentUserId, accessToken } = initMiroAPI();
 
-    if ( !currentUserId?.trim() || !accessToken?.trim() ) {
+    if ( !currentUserId?.trim() ) {
         return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
     } else if ( !accessToken?.trim() ) {
         return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
@@ -59,7 +58,7 @@ export async function DELETE( req: NextRequest ) {
 
     const { userId: currentUserId, accessToken } = initMiroAPI();
 
-    if ( !currentUserId?.trim() || !accessToken?.trim() ) {
+    if ( !currentUserId?.trim() ) {
         return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
     } else if ( !accessToken?.trim() ) {
         return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
@@ -113,7 +112,7 @@ export async function DELETE( req: NextRequest ) {
 export async function POST( req: NextRequest ) {
     const { userId: currentUserId, accessToken } = initMiroAPI();
 
-    if ( !currentUserId?.trim() || !accessToken?.trim() ) {
+    if ( !currentUserId?.trim() ) {
         return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
     } else if ( !accessToken?.trim() ) {
         return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
@@ -164,8 +163,6 @@ export async function POST( req: NextRequest ) {
     } );
 
     await createdWord.save();
-
-    // await TopicModel.updateOne( { _id: word.topic }, { $push: { words: createdWord._id } } ).exec();
 
     return NextResponse.json( { data: createdWord } );
 }

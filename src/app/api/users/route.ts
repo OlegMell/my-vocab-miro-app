@@ -8,7 +8,7 @@ import initMiroAPI from '../../../utils/initMiroAPI';
 export async function GET( req: NextRequest ) {
     const { userId: currentUserId, accessToken } = initMiroAPI();
 
-    if ( !currentUserId?.trim() || !accessToken?.trim() ) {
+    if ( !currentUserId?.trim() ) {
         return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
     } else if ( !accessToken?.trim() ) {
         return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
@@ -52,7 +52,7 @@ export async function POST( req: NextRequest ) {
 
     const { userId: currentUserId, accessToken } = initMiroAPI();
 
-    if ( !currentUserId?.trim() || !accessToken?.trim() ) {
+    if ( !currentUserId?.trim() ) {
         return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
     } else if ( !accessToken?.trim() ) {
         return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
@@ -97,16 +97,6 @@ export async function POST( req: NextRequest ) {
         return NextResponse.json( { data: createdUser } );
     }
 
-    // const topics = await topicModel.find().exec();
-
-    // const createdUser = new usersModel( user );
-
-    // createdUser.topics.push( ...topics );
-
-    // await createdUser.save();
-
-    // return NextResponse.json( { data: createdUser } );
-
 }
 
 
@@ -114,9 +104,31 @@ export async function POST( req: NextRequest ) {
  * Patch user
  */
 export async function PATCH( req: NextRequest ) {
-    const studentId: { id: string } = await req.json();
+    const { userId: currentUserId, accessToken } = initMiroAPI();
 
-    const { userId: currentUserId } = initMiroAPI();
+    if ( !currentUserId?.trim() ) {
+        return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
+    } else if ( !accessToken?.trim() ) {
+        return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
+    }
+
+    const res = await fetch( 'https://api.miro.com/v1/oauth-token', {
+        headers: {
+            Authorization: `Bearer ${ accessToken.trim() }`,
+        },
+    } );
+
+    const verifyAccessTokenResponse = await res.json();
+
+    if ( !verifyAccessTokenResponse ) {
+        return NextResponse.json( { msg: 'Cannot verify access token' }, { status: 500 } );
+    }
+
+    if ( verifyAccessTokenResponse.user.id !== currentUserId ) {
+        return NextResponse.json( { msg: 'Access token did not pass the verification' }, { status: 401 } );
+    }
+
+    const studentId: { id: string } = await req.json();
 
     const user = await usersModel.findOne( { userId: currentUserId } );
     user.students.push( studentId.id );
