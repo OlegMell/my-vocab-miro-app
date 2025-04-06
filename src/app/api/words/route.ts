@@ -7,29 +7,29 @@ import mongoose from 'mongoose';
 
 export async function GET( req: NextRequest ) {
 
-    const { userId: currentUserId, accessToken } = initMiroAPI();
+    const { userId: currentUserId, accessToken, miro } = initMiroAPI();
 
-    if ( !currentUserId?.trim() ) {
-        return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
-    } else if ( !accessToken?.trim() ) {
-        return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
+    // USER VERIFICATION ------------------------------------------------------
+
+    if (!currentUserId?.trim()) {
+        return NextResponse.json({ msg: 'no user id set in cookie' }, { status: 401 });
+    } else if (!accessToken?.trim()) {
+        return NextResponse.json({ msg: 'no access token set in cookie' }, { status: 401 });
     }
 
-    const res = await fetch( 'https://api.miro.com/v1/oauth-token', {
-        headers: {
-            Authorization: `Bearer ${ accessToken.trim() }`,
-        },
-    } );
+    const miroApi = miro.as(currentUserId);
 
-    const verifyAccessTokenResponse = await res.json();
+    try {
+        const verifyAccessTokenResponse = await miroApi.tokenInfo();
 
-    if ( !verifyAccessTokenResponse ) {
-        return NextResponse.json( { msg: 'Cannot verify access token' }, { status: 500 } );
+        if (verifyAccessTokenResponse.user.id !== currentUserId) {
+            return NextResponse.json({ msg: 'Access token did not pass the verification' }, { status: 401 });
+        }
+    } catch (err: any) {
+        return NextResponse.json(err.body, { status: err.statusCode });
     }
 
-    if ( verifyAccessTokenResponse.user.id !== currentUserId ) {
-        return NextResponse.json( { msg: 'Access token did not pass the verification' }, { status: 401 } );
-    }
+    // END USER VERIFICATION ------------------------------------------
 
     const searchParams = req.nextUrl.searchParams;
     const topicId = searchParams.get( 'topicId' );
@@ -56,33 +56,29 @@ export async function GET( req: NextRequest ) {
 
 export async function DELETE( req: NextRequest ) {
 
-    const { userId: currentUserId, accessToken } = initMiroAPI();
+    const { userId: currentUserId, accessToken, miro } = initMiroAPI();
 
-    if ( !currentUserId?.trim() ) {
-        return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
-    } else if ( !accessToken?.trim() ) {
-        return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
+    // USER VERIFICATION ------------------------------------------------------
+
+    if (!currentUserId?.trim()) {
+        return NextResponse.json({ msg: 'no user id set in cookie' }, { status: 401 });
+    } else if (!accessToken?.trim()) {
+        return NextResponse.json({ msg: 'no access token set in cookie' }, { status: 401 });
     }
 
-    const res = await fetch( 'https://api.miro.com/v1/oauth-token', {
-        headers: {
-            Authorization: `Bearer ${ accessToken.trim() }`,
-        },
-    } );
+    const miroApi = miro.as(currentUserId);
 
-    const verifyAccessTokenResponse = await res.json();
+    try {
+        const verifyAccessTokenResponse = await miroApi.tokenInfo();
 
-    if ( !verifyAccessTokenResponse ) {
-        return NextResponse.json( { msg: 'Cannot verify access token' }, { status: 500 } );
+        if (verifyAccessTokenResponse.user.id !== currentUserId) {
+            return NextResponse.json({ msg: 'Access token did not pass the verification' }, { status: 401 });
+        }
+    } catch (err: any) {
+        return NextResponse.json(err.body, { status: err.statusCode });
     }
 
-    if ( verifyAccessTokenResponse.user.id !== currentUserId ) {
-        return NextResponse.json( { msg: 'Access token did not pass the verification' }, { status: 401 } );
-    }
-
-    if ( !await initMiroAPI()?.miro?.isAuthorized ) {
-        return NextResponse.json( { message: 'no authorized user!' }, { status: 401 } );
-    }
+    // END USER VERIFICATION ------------------------------------------
 
     const searchParams = req.nextUrl.searchParams;
     const wordId = searchParams.get( 'id' );
@@ -110,33 +106,29 @@ export async function DELETE( req: NextRequest ) {
  * Add new word
  */
 export async function POST( req: NextRequest ) {
-    const { userId: currentUserId, accessToken } = initMiroAPI();
+    const { userId: currentUserId, accessToken, miro } = initMiroAPI();
 
-    if ( !currentUserId?.trim() ) {
-        return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
-    } else if ( !accessToken?.trim() ) {
-        return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
+    // USER VERIFICATION ------------------------------------------------------
+
+    if (!currentUserId?.trim()) {
+        return NextResponse.json({ msg: 'no user id set in cookie' }, { status: 401 });
+    } else if (!accessToken?.trim()) {
+        return NextResponse.json({ msg: 'no access token set in cookie' }, { status: 401 });
     }
 
-    const res = await fetch( 'https://api.miro.com/v1/oauth-token', {
-        headers: {
-            Authorization: `Bearer ${ accessToken.trim() }`,
-        },
-    } );
+    const miroApi = miro.as(currentUserId);
 
-    const verifyAccessTokenResponse = await res.json();
+    try {
+        const verifyAccessTokenResponse = await miroApi.tokenInfo();
 
-    if ( !verifyAccessTokenResponse ) {
-        return NextResponse.json( { msg: 'Cannot verify access token' }, { status: 500 } );
+        if (verifyAccessTokenResponse.user.id !== currentUserId) {
+            return NextResponse.json({ msg: 'Access token did not pass the verification' }, { status: 401 });
+        }
+    } catch (err: any) {
+        return NextResponse.json(err.body, { status: err.statusCode });
     }
 
-    if ( verifyAccessTokenResponse.user.id !== currentUserId ) {
-        return NextResponse.json( { msg: 'Access token did not pass the verification' }, { status: 401 } );
-    }
-
-    if ( !await initMiroAPI()?.miro?.isAuthorized ) {
-        return NextResponse.json( { message: 'no authorized user!' }, { status: 401 } );
-    }
+    // END USER VERIFICATION ------------------------------------------
 
     const { word } = await req.json();
 

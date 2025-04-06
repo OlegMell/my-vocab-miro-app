@@ -19,7 +19,7 @@ export default function Card( { id, frontSide, backSide, onRemove }: CardProps )
         setFlipped( !flipped );
     }
 
-    async function addSticky( e ) {
+    async function addSticky( e: any ) {
         e.stopPropagation();
 
         const position = await miro.board.findEmptySpace( {
