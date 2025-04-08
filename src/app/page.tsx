@@ -11,6 +11,8 @@ import { Footer } from '../components/Footer';
 const getBoards = async () => {
   const { miro, userId } = initMiroAPI();
 
+  console.log( { userId } );
+
   // redirect to auth url if user has not authorized the app
   if ( !userId || !( await miro.isAuthorized( userId ) ) ) {
     return {
