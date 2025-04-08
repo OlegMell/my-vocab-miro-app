@@ -20,7 +20,7 @@ export const MiroSDKInit = () => {
       console.log( 'icon:click', e );
       await miro.board.ui.openPanel( { url: '/' } );
     } );
-  } );
+  }, [ miro ] );
 
   return null;
 };
