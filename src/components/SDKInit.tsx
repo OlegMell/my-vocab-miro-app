@@ -6,6 +6,8 @@ export const MiroSDKInit = () => {
   console.log( 'MiroSDKInit COMP' )
   useEffect( () => {
 
+    console.log( miro )
+
     const f = async () => {
       console.log( '[canOpenPanel]: ', await miro.board.ui.canOpenPanel() )
     }
