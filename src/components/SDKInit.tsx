@@ -11,7 +11,8 @@ export const MiroSDKInit = () => {
 
     f();
 
-    miro.board.ui.on( 'icon:click', async () => {
+    miro.board.ui.on( 'icon:click', async ( e ) => {
+      console.log( 'icon:click', e );
       await miro.board.ui.openPanel( { url: '/' } );
     } );
   } );
