@@ -21,6 +21,6 @@ export async function GET( request: NextRequest ) {
   } catch ( error ) {
     redirect( '/?error' );
   }
-  // redirect( `https://miro.com/app-install-completed/?client_id=3458764611114746267&team_id=${ teamId }` );
-  redirect('/success-logged-in');
+  redirect( `https://miro.com/app-install-completed/?client_id=3458764611114746267&team_id=${ teamId }` );
+  // redirect('/success-logged-in');
 }

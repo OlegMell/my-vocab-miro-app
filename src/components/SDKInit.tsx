@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 
 export const MiroSDKInit = () => {
+  console.log( 'MiroSDKInit COMP' )
   useEffect( () => {
 
     const f = async () => {
