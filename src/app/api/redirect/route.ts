@@ -7,7 +7,8 @@ export async function GET( request: NextRequest ) {
   const { miro, userId } = initMiroAPI();
 
   // Make sure the code is in query parameters
-  console.log( request.nextUrl.searchParams.get( 'client_id' ) );
+  console.log( '[client_id]', request.nextUrl.searchParams.get( 'client_id' ) );
+
   const code = request.nextUrl.searchParams.get( 'code' );
   const teamId = request.nextUrl.searchParams.get( 'team_id' );
 
@@ -22,5 +23,4 @@ export async function GET( request: NextRequest ) {
     redirect( '/?error' );
   }
   redirect( `https://miro.com/app-install-completed/?client_id=3458764611114746267&team_id=${ teamId }` );
-  // redirect('/success-logged-in');
 }

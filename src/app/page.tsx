@@ -40,16 +40,13 @@ const getBoards = async () => {
 };
 
 export default async function Page() {
-  // const { userId, authUrl } = await getBoards();
+  const { userId, authUrl } = await getBoards();
 
-  // console.log( { authUrl } );
-
-  // const currentUser = await getUserByMiroUserId( userId! );
+  const currentUser = await getUserByMiroUserId( userId! );
 
   return (
     <div>
-      <p>HELLO</p>
-      {/* {
+      {
         authUrl ? (
           <a className="button button-primary" href={authUrl} target="_blank">
             Login
@@ -59,7 +56,7 @@ export default async function Page() {
             <Home user={JSON.stringify( currentUser )} userId={userId} />
           )
       }
-      <Footer /> */}
+      <Footer />
     </div >
   );
 }

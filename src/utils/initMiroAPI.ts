@@ -5,7 +5,6 @@ import { State } from '@mirohq/miro-api/dist/storage';
 const tokensCookie = 'miro_tokens';
 
 export default function initMiroAPI() {
-  console.log( 'initMiroAPI' );
   const cookieInstance = cookies();
 
   const getCookieValue = ( key: string = tokensCookie ) => {
