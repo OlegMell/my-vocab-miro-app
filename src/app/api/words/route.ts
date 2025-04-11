@@ -12,6 +12,8 @@ export async function GET( req: NextRequest ) {
     console.log( { currentUserId } );
     console.log( { accessToken } );
 
+    console.log( 'isAuthorized', await miro.isAuthorized( currentUserId ) );
+
     // USER VERIFICATION ------------------------------------------------------
 
     if ( !currentUserId?.trim() ) {
