@@ -9,11 +9,6 @@ export async function GET( req: NextRequest ) {
 
     const { userId: currentUserId, accessToken, miro } = initMiroAPI();
 
-    console.log( { currentUserId } );
-    console.log( { accessToken } );
-
-    // console.log( 'isAuthorized', await miro.isAuthorized( currentUserId ) );
-
     // USER VERIFICATION ------------------------------------------------------
 
     if ( !currentUserId?.trim() ) {
@@ -26,8 +21,6 @@ export async function GET( req: NextRequest ) {
 
     try {
         const verifyAccessTokenResponse = await miroApi.tokenInfo();
-
-        console.log( { verifyAccessTokenResponse } );
 
         if ( verifyAccessTokenResponse.user.id !== currentUserId ) {
             return NextResponse.json( { msg: 'Access token did not pass the verification' }, { status: 401 } );

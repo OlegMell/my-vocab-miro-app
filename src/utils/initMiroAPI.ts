@@ -8,7 +8,6 @@ export default function initMiroAPI() {
   const cookieInstance = cookies();
 
   const getCookieValue = ( key: string = tokensCookie ) => {
-    // Load state (tokens) from a cookie if it's set
     try {
       return JSON.parse( cookieInstance.get( key )?.value! ) as State;
     } catch ( err ) {
@@ -16,7 +15,6 @@ export default function initMiroAPI() {
     }
   };
 
-  // setup a Miro instance that loads tokens from cookies
   return {
     miro: new Miro( {
       storage: {
@@ -33,7 +31,6 @@ export default function initMiroAPI() {
         },
       },
     } ),
-    // User id might be undefined if the user is not logged in yet, we will know it after the redirect happened
     userId: getCookieValue()?.userId || '',
     accessToken: getCookieValue()?.accessToken || ''
   };

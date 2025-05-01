@@ -81,8 +81,6 @@ export function TranslateForm( {
         onLangChange( fromRef.current.value );
 
         setTranslated( translateResponse.translated );
-
-        // inpToRef.current.focus();
     }
 
     const swap = () => {

@@ -8,22 +8,22 @@ export async function GET( req: NextRequest ) {
 
     // USER VERIFICATION ------------------------------------------------------
 
-    if (!currentUserId?.trim()) {
-        return NextResponse.json({ msg: 'no user id set in cookie' }, { status: 401 });
-    } else if (!accessToken?.trim()) {
-        return NextResponse.json({ msg: 'no access token set in cookie' }, { status: 401 });
+    if ( !currentUserId?.trim() ) {
+        return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
+    } else if ( !accessToken?.trim() ) {
+        return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
     }
 
-    const miroApi = miro.as(currentUserId);
+    const miroApi = miro.as( currentUserId );
 
     try {
         const verifyAccessTokenResponse = await miroApi.tokenInfo();
 
-        if (verifyAccessTokenResponse.user.id !== currentUserId) {
-            return NextResponse.json({ msg: 'Access token did not pass the verification' }, { status: 401 });
+        if ( verifyAccessTokenResponse.user.id !== currentUserId ) {
+            return NextResponse.json( { msg: 'Access token did not pass the verification' }, { status: 401 } );
         }
-    } catch (err: any) {
-        return NextResponse.json(err.body, { status: err.statusCode });
+    } catch ( err: any ) {
+        return NextResponse.json( err.body, { status: err.statusCode } );
     }
 
     // END USER VERIFICATION ------------------------------------------
@@ -65,9 +65,7 @@ export async function DELETE( req: NextRequest ) {
     const searchParams = req.nextUrl.searchParams;
     const topicId = searchParams.get( 'id' );
 
-    const topic = await topicModel.findOneAndDelete( { _id: topicId } ).exec();
-
-    console.log( topic )
+    await topicModel.findOneAndDelete( { _id: topicId } ).exec();
 
     return NextResponse.json( { data: topicId } );
 }

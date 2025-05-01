@@ -4,9 +4,6 @@ import Script from 'next/script';
 import { MiroSDKInit } from '../components/SDKInit';
 
 export default function RootLayout( { children }: PropsWithChildren ) {
-
-  console.log( 'RootLayout' );
-
   return (
     <html>
       <body>

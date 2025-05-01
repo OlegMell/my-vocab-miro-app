@@ -6,9 +6,6 @@ import initMiroAPI from '../../../utils/initMiroAPI';
 export async function GET( request: NextRequest ) {
   const { miro, userId } = initMiroAPI();
 
-  // Make sure the code is in query parameters
-  console.log( '[client_id]', request.nextUrl.searchParams.get( 'client_id' ) );
-
   const code = request.nextUrl.searchParams.get( 'code' );
   const teamId = request.nextUrl.searchParams.get( 'team_id' );
 
