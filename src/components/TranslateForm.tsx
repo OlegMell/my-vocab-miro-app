@@ -12,7 +12,7 @@ export interface TranslateFormProps {
     readonly onWordChange: ( word: string ) => void;
     readonly onTranslationChange: ( translation: string ) => void;
     readonly onLangChange: ( lang: string ) => void;
-}пше
+}
 
 export function TranslateForm( {
     onWordChange,
