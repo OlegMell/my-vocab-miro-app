@@ -1,33 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import usersModel from '../../core/models/db/users.model';
 import topicModel from './../../core/models/db/topic.model';
-import initMiroAPI from '../../../utils/initMiroAPI';
+import { withAuth } from '../../lib/withAuth';
 
-export async function GET( req: NextRequest ) {
-    const { userId: currentUserId, accessToken, miro } = initMiroAPI();
-
-    // USER VERIFICATION ------------------------------------------------------
-
-    if ( !currentUserId?.trim() ) {
-        return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
-    } else if ( !accessToken?.trim() ) {
-        return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
-    }
-
-    const miroApi = miro.as( currentUserId );
-
-    try {
-        const verifyAccessTokenResponse = await miroApi.tokenInfo();
-
-        if ( verifyAccessTokenResponse.user.id !== currentUserId ) {
-            return NextResponse.json( { msg: 'Access token did not pass the verification' }, { status: 401 } );
-        }
-    } catch ( err: any ) {
-        return NextResponse.json( err.body, { status: err.statusCode } );
-    }
-
-    // END USER VERIFICATION ------------------------------------------
-
+async function GET( req: any ) {
     const searchParams = req.nextUrl.searchParams;
     const studentId = searchParams.get( 'studentId' );
 
@@ -37,31 +13,10 @@ export async function GET( req: NextRequest ) {
     return NextResponse.json( { data: user ? user.topics : [] } );
 }
 
-export async function DELETE( req: NextRequest ) {
-    const { userId: currentUserId, accessToken } = initMiroAPI();
+const GETHandler = withAuth( GET );
+export { GETHandler as GET };
 
-    if ( !currentUserId?.trim() ) {
-        return NextResponse.json( { msg: 'no user id set in cookie' }, { status: 401 } );
-    } else if ( !accessToken?.trim() ) {
-        return NextResponse.json( { msg: 'no access token set in cookie' }, { status: 401 } );
-    }
-
-    const res = await fetch( 'https://api.miro.com/v1/oauth-token', {
-        headers: {
-            Authorization: `Bearer ${ accessToken.trim() }`,
-        },
-    } );
-
-    const verifyAccessTokenResponse = await res.json();
-
-    if ( !verifyAccessTokenResponse ) {
-        return NextResponse.json( { msg: 'Cannot verify access token' }, { status: 500 } );
-    }
-
-    if ( verifyAccessTokenResponse.user.id !== currentUserId ) {
-        return NextResponse.json( { msg: 'Access token did not pass the verification' }, { status: 401 } );
-    }
-
+async function DELETE( req: any ) {
     const searchParams = req.nextUrl.searchParams;
     const topicId = searchParams.get( 'id' );
 
@@ -69,3 +24,6 @@ export async function DELETE( req: NextRequest ) {
 
     return NextResponse.json( { data: topicId } );
 }
+
+const DELETEHandler = withAuth( DELETE );
+export { DELETEHandler as DELETE };
