@@ -34,7 +34,7 @@ async function GET( req: any, res: any, userId?: any ) {
         .populate( 'students' )
         .exec();
 
-    return res.json( { data: users ?? [] } );
+    return NextResponse.json( { data: users ?? [] } );
 };
 
 const GETHandler = withAuth( GET );
