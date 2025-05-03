@@ -19,6 +19,7 @@ export default function Loader( { fullSize = false }: LoaderProps ): React.React
         <div className="loader" style={styles}>
             <Image
                 className='rotation'
+                style={{ opacity: '0.8' }}
                 src={loaderIco}
                 alt='loader icon'
             />

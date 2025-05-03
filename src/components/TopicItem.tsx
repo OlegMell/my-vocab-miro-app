@@ -37,9 +37,11 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
     }
 
     function handleAddWordClick(): void {
-        if ( addWordClicked ) {
-            addWordClicked( topic );
+        if ( !addWordClicked ) {
+            return;
         }
+
+        addWordClicked( topic );
     }
 
     return (

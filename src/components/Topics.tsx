@@ -27,7 +27,12 @@ export function Topics( { topics, userId, addWordClicked }: TopicsProps ): React
                     ? ( <ul className='list'>
                         {
                             topics.map( ( topic, index ) => (
-                                <TopicItem addWordClicked={addWordClicked} userId={userId} key={index} topic={topic} />
+                                <TopicItem
+                                    addWordClicked={addWordClicked}
+                                    userId={userId}
+                                    key={index}
+                                    topic={topic}
+                                />
                             ) )
                         }
                     </ul> )
