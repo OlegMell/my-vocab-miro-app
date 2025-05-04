@@ -7,6 +7,7 @@ import { Words } from './Words';
 import { WordsRequest } from '../app/core/models/backend/words-request.interface';
 import styles from './styles.module.css';
 import Loader from './Loader';
+import { fetchWords } from '../app/lib/fetchWords';
 
 interface TopicItemProps {
     readonly topic: Topic;
@@ -26,8 +27,7 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
 
         setFetching( true );
 
-        const res = await fetch( `/api/words?topicId=${ topic._id }${ userId ? `&userId=${ userId }` : '' } `, );
-        const words: WordsRequest = await res.json();
+        const words: WordsRequest = await fetchWords( topic._id, userId );
 
         if ( words && words.data ) {
             setWords( words.data );
