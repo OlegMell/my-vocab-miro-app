@@ -8,6 +8,9 @@ export async function GET( request: NextRequest ) {
 
   const code = request.nextUrl.searchParams.get( 'code' );
   const teamId = request.nextUrl.searchParams.get( 'team_id' );
+  const client_id = request.nextUrl.searchParams.get( 'client_id' );
+
+  console.log( { client_id } );
 
   if ( typeof code !== 'string' ) {
     redirect( '/?missing-code' );
