@@ -40,6 +40,7 @@ const getBoards = async () => {
 export default async function Page() {
   const { userId, authUrl } = await getBoards();
 
+  console.log( userId );
   console.log( authUrl );
 
   const currentUser = await getUserByMiroUserId( userId! );
@@ -47,7 +48,7 @@ export default async function Page() {
   return (
     <div>
       {
-        authUrl ? (
+        !userId ? (
           <a className="button button-primary" href={authUrl} target="_blank">
             Login
           </a>
