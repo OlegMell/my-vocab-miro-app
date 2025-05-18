@@ -99,6 +99,10 @@ export function TranslateForm( {
         onTranslationChange( translation );
     }
 
+    const onTranslationLangChange = ( e ) => {
+        console.log( 'onTranslationLangChange', e );
+    }
+
     return (
         <form>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative' }}>
@@ -125,7 +129,7 @@ export function TranslateForm( {
                 <br />
                 <div className="form-group">
                     <label htmlFor="translation"></label>
-                    <select id='translation' ref={toRef} defaultValue={langTo} className="select select-small">
+                    <select id='translation' ref={toRef} defaultValue={langTo} onChange={onTranslationLangChange} className="select select-small">
                         <option value="en">English</option>
                         <option value="fr">France</option>
                         <option value="ru">Russian</option>
