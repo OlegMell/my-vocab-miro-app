@@ -55,7 +55,11 @@ export function TranslateForm( {
     };
 
     const submit = async ( value: string ) => {
-        const res = await getTranslation( value, fromRef.current?.value, toRef.current?.value );
+        const res = await getTranslation(
+            value,
+            fromRef.current?.value,
+            toRef.current?.value
+        );
 
         const translateResponse: TranslateResponse = await res.json();
 
@@ -100,7 +104,6 @@ export function TranslateForm( {
     }
 
     const onTranslationLangChange = ( { target }: any ) => {
-        console.log( 'onTranslationLangChange', target );
         submit( inpFromRef.current?.value );
     }
 
@@ -109,10 +112,18 @@ export function TranslateForm( {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative' }}>
                 <div className="form-group">
                     <select ref={fromRef} className="select select-small">
+                        <option selected value="auto">Auto</option>
                         <option value="en">English</option>
                         <option value="fr">France</option>
+                        <option value="de">German</option>
+                        <option value="pl">Polish</option>
+                        <option value="es">Spanish</option>
+                        <option value="sk">Slovak</option>
+                        <option value="cs">Czech</option>
+                        <option value="sl">Slovenian</option>
                         <option value="ru">Russian</option>
                         <option value="uk">Ukrainian</option>
+
                     </select>
                 </div>
                 <div className="form-group">
@@ -133,6 +144,12 @@ export function TranslateForm( {
                     <select id='translation' ref={toRef} defaultValue={langTo} onChange={onTranslationLangChange} className="select select-small">
                         <option value="en">English</option>
                         <option value="fr">France</option>
+                        <option value="de">German</option>
+                        <option value="pl">Polish</option>
+                        <option value="es">Spanish</option>
+                        <option value="sk">Slovak</option>
+                        <option value="cs">Czech</option>
+                        <option value="sl">Slovenian</option>
                         <option value="ru">Russian</option>
                         <option value="uk">Ukrainian</option>
                     </select>
