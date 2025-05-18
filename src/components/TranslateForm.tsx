@@ -99,8 +99,9 @@ export function TranslateForm( {
         onTranslationChange( translation );
     }
 
-    const onTranslationLangChange = ( e ) => {
-        console.log( 'onTranslationLangChange', e );
+    const onTranslationLangChange = ( { target }: any ) => {
+        console.log( 'onTranslationLangChange', target );
+        submit( inpFromRef.current?.value );
     }
 
     return (
