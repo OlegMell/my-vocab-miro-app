@@ -10,7 +10,7 @@ export const WordSchema = new mongoose.Schema( {
     lang: String,
     topicId: mongoose.Types.ObjectId,
     userId: mongoose.Types.ObjectId,
-} );
+}, { timestamps: true } );
 
 
 export default mongoose.models.Word || mongoose.model( 'Word', WordSchema )
