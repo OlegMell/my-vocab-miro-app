@@ -87,7 +87,6 @@ async function POST( req: any ) {
         translation: word.translation,
         level: word.level,
         lang: word.lang,
-        date: new Date().getDate(),
         pinned: word.pinned,
         marked: word.marked,
         userId: new mongoose.Types.ObjectId( `${ word.userId! }` ),

@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 export const WordSchema = new mongoose.Schema( {
     word: String,
     translation: String,
-    date: Date,
     pinned: Boolean,
     marked: Boolean,
     level: String,
