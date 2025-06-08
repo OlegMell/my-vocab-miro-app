@@ -26,9 +26,9 @@ export const Footer = () => {
                 clickable={true}
                 id="feedbackTooltip"
                 place="top"
-                style={{ backgroundColor: '#090909', color: '#fff' }}
+                style={{ backgroundColor: '#090909', color: '#fff', zIndex: 10000 }}
             >
-                Please send your ideas, feedback and bug reports to: <br /> <a>oleg.mell.work@gmail.com</a>
+                Send ideas, feedback and bug reports to: <br /> <a>oleg.mell.work@gmail.com</a>
             </ReactTooltip>
         </div>
     )
