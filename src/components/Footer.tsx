@@ -3,6 +3,8 @@
 import React, { useEffect, useRef } from 'react';
 import { Tooltip as ReactTooltip, TooltipRefProps } from "react-tooltip";
 
+const TOOLTIP_TIMEOUT_MS: number = 5000;
+
 export const Footer = () => {
 
     const tooltipRef = useRef<TooltipRefProps>( null );
@@ -10,9 +12,9 @@ export const Footer = () => {
     useEffect( () => {
         const timeout = setTimeout( () => {
             tooltipRef.current?.open();
-        }, 3000 );
+        }, TOOLTIP_TIMEOUT_MS );
 
-        return () => clearTimeout(timeout);
+        return () => clearTimeout( timeout );
     }, [] );
 
     return (
