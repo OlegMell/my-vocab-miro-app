@@ -1,14 +1,26 @@
 'use client'
 
-import React from 'react';
-import { Tooltip as ReactTooltip } from "react-tooltip";
+import React, { useEffect, useRef } from 'react';
+import { Tooltip as ReactTooltip, TooltipRefProps } from "react-tooltip";
 
 export const Footer = () => {
+
+    const tooltipRef = useRef<TooltipRefProps>( null );
+
+    useEffect( () => {
+        const timeout = setTimeout( () => {
+            tooltipRef.current?.open();
+        }, 3000 );
+
+        return () => clearTimeout(timeout);
+    }, [] );
+
     return (
         <div className="footer">
             <span data-tooltip-id='feedbackTooltip' className='icon icon-comment-feedback'></span>
 
             <ReactTooltip
+                ref={tooltipRef}
                 clickable={true}
                 id="feedbackTooltip"
                 place="top"
