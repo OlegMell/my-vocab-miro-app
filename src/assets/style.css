@@ -303,6 +303,14 @@ ul {
   align-items: center;
 }
 
+.add-word-page .row .form-group {
+  width: 50%;
+
+  &:last-child {
+    width: 25%;
+  }
+}
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);
