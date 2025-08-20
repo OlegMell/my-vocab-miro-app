@@ -27,7 +27,7 @@ export function PageContent( { userSerialized }: PageContentProps ): React.React
     return (
         <>
             {
-                tabsContext.activeTab === 0 && <Topics addWordClicked={goToAddWord} topics={user.topics} />
+                tabsContext.activeTab === 0 && <Topics userId={user.id || user._id} addWordClicked={goToAddWord} topics={user.topics} />
             }
             {
                 tabsContext.activeTab === 1 && <AddWord user={user} topics={user.topics} />
