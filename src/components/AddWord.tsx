@@ -75,22 +75,24 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
 
     return (
         <div className='add-word-page'>
-            <div className="form-group">
-                <label htmlFor="topic">Topic</label>
-                <select ref={topicRef} className="select select-small" id='topic'>
-                    {getTopics()}
-                </select>
-            </div>
+            <div className='row'>
+                <div className="form-group">
+                    <label htmlFor="topic">Topic</label>
+                    <select ref={topicRef} className="select select-small" id='topic'>
+                        {getTopics()}
+                    </select>
+                </div>
 
-            <div className="form-group">
-                <label htmlFor="level">Level</label>
-                <select ref={levelRef} className="select select-small" id='level'>
-                    <option value="A1">A1</option>
-                    <option value="A2">A2</option>
-                    <option value="B1">B1</option>
-                    <option value="B2">B2</option>
-                    <option value="C1">C1</option>
-                </select>
+                <div className="form-group">
+                    <label htmlFor="level">Level</label>
+                    <select ref={levelRef} className="select select-small" id='level'>
+                        <option value="A1">A1</option>
+                        <option value="A2">A2</option>
+                        <option value="B1">B1</option>
+                        <option value="B2">B2</option>
+                        <option value="C1">C1</option>
+                    </select>
+                </div>
             </div>
 
             <hr />
