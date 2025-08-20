@@ -7,6 +7,7 @@ import { Topic } from '../app/core/models/topic.interface';
 import { useTabsContext } from './TabsProvider';
 import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
 import { addWordRequest } from '../app/lib/addWord';
+import { Tooltip as ReactTooltip, TooltipRefProps } from "react-tooltip";
 
 export interface AddWordProps {
     readonly user: User;
@@ -21,6 +22,8 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
 
     const topicRef = useRef<HTMLSelectElement>( null );
     const levelRef = useRef<HTMLSelectElement>( null );
+
+    const tooltipRef = useRef<TooltipRefProps>( null );
 
     useEffect( () => {
         const topicId = localStorage.getItem( LocalStorageKeys.TOPIC_ID );
@@ -93,6 +96,18 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
                         <option value="C1">C1</option>
                     </select>
                 </div>
+
+                <span data-tooltip-id='tipTooltip' className='icon icon-info'></span>
+
+                <ReactTooltip
+                    ref={tooltipRef}
+                    clickable={true}
+                    id="tipTooltip"
+                    place="top"
+                    style={{ backgroundColor: '#090909', color: '#fff', zIndex: 10000 }}
+                >
+                    You can pick a sticky note with "word - translation" for quick adding
+                </ReactTooltip>
             </div>
 
             <hr />
