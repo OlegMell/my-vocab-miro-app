@@ -9,7 +9,6 @@ import styles from './styles.module.css';
 import Loader from './Loader';
 import { fetchWords } from '../app/lib/fetchWords';
 import { StickyNote } from '@mirohq/websdk-types';
-import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
 import { addWordRequest } from '../app/lib/addWord';
 
 interface TopicItemProps {

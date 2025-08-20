@@ -7,6 +7,7 @@ import { useDebounce } from '../app/core/hooks/useDebouse';
 import { getNavigatorLanguage } from '../app/core/utils';
 import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
 import { getTranslation } from '../app/lib/getTranslation';
+import { StickyNote } from '@mirohq/websdk-types';
 
 export interface TranslateFormProps {
     readonly onWordChange: ( word: string ) => void;
@@ -33,6 +34,30 @@ export function TranslateForm( {
     const inpToRef: any = useRef();
     const fromRef: any = useRef();
     const toRef: any = useRef();
+
+    useEffect( () => {
+
+        miro.board.ui.on( 'selection:update', async () => {
+
+            let selectedItems = await miro.board.getSelection();
+
+            // Filter sticky notes from selected items
+            let stickyNotes = selectedItems.filter( ( item ) => item.type === 'sticky_note' );
+
+            if ( stickyNotes && stickyNotes.length ) {
+                const [ word, translation ] = ( stickyNotes[ 0 ] as StickyNote ).content.split( '-' );
+
+                if ( !word || !translation ) {
+                    return;
+                }
+
+                inpFromRef.current.value = word;
+                inpToRef.current.value = translation;
+            }
+
+        } );
+
+    }, [] )
 
     useEffect( () => {
         return () => {
