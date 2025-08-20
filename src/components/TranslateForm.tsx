@@ -55,6 +55,9 @@ export function TranslateForm( {
                 inpToRef.current.value = translation;
                 fromRef.current.value = 'auto';
                 toRef.current.value = 'auto';
+
+                onWordChange( word );
+                onTranslationChange( word );
             }
 
         } );
