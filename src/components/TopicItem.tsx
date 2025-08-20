@@ -8,6 +8,9 @@ import { WordsRequest } from '../app/core/models/backend/words-request.interface
 import styles from './styles.module.css';
 import Loader from './Loader';
 import { fetchWords } from '../app/lib/fetchWords';
+import { StickyNote } from '@mirohq/websdk-types';
+import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
+import { addWordRequest } from '../app/lib/addWord';
 
 interface TopicItemProps {
     readonly topic: Topic;
@@ -36,12 +39,39 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
         setFetching( false );
     }
 
-    function handleAddWordClick(): void {
-        if ( !addWordClicked ) {
-            return;
+    async function handleAddWordClick(): Promise<void> {
+
+        // Get selected items
+        let selectedItems = await miro.board.getSelection();
+
+        // Filter sticky notes from selected items
+        let stickyNotes = selectedItems.filter( ( item ) => item.type === 'sticky_note' );
+
+        if ( stickyNotes && stickyNotes.length ) {
+
+            const [ word, translation ] = ( stickyNotes[ 0 ] as StickyNote ).content.split( '-' );
+
+            if ( !word || !translation ) {
+                return;
+            }
+
+            await addWordRequest( {
+                word: word.trim(),
+                lang: 'auto',
+                translation: translation.trim(),
+                level: '-',
+                pinned: false,
+                marked: false,
+                topicId: topic._id,
+            }, userId! );
+        } else {
+            if ( !addWordClicked ) {
+                return;
+            }
+
+            addWordClicked( topic );
         }
 
-        addWordClicked( topic );
     }
 
     return (
@@ -63,8 +93,8 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
                 ) : ''
             } {
                 ( words && !words.length && !fetching ) && (
-                    <p style={{ fontSize: '1.1rem', paddingLeft: '20px', display: 'flex', alignItems: 'center', gap: '18px' }}>
-                        <i>No words were added to this topic!</i>
+                    <p style={{ fontSize: '.8rem', paddingLeft: '20px', display: 'flex', alignItems: 'center', gap: '18px' }}>
+                        <i>Select sticky with word and click "Add word" button or just click the button</i>
                         <button
                             tabIndex={1}
                             onClick={handleAddWordClick}
