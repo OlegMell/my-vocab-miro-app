@@ -105,7 +105,7 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
                     clickable={true}
                     id="tipTooltip"
                     place="top"
-                    style={{ backgroundColor: '#090909', color: '#fff', zIndex: 10000 }}
+                    style={{ backgroundColor: '#090909', color: '#fff', zIndex: 10000, wordBreak: 'break-word', maxWidth: '150px' }}
                 >
                     You can pick a sticky note with "word - translation" for quick adding
                 </ReactTooltip>
