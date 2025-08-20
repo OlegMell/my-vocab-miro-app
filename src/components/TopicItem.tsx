@@ -23,8 +23,8 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
     const [ words, setWords ] = useState<Word[] | undefined>( undefined );
     const [ fetching, setFetching ] = React.useState<boolean>( false );
 
-    const handleTopicClick = async ( e ) => {
-        if ( e.key?.toLowerCase() === 'tab' ) {
+    const handleTopicClick = async ( e?: any ) => {
+        if ( e && e.key?.toLowerCase() === 'tab' ) {
             return;
         }
 
@@ -63,7 +63,9 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
                 pinned: false,
                 marked: false,
                 topicId: topic._id,
-            }, userId! );
+            }, userId! ).catch( () => {
+                handleTopicClick();
+            } )
         } else {
             if ( !addWordClicked ) {
                 return;
