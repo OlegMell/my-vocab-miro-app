@@ -53,6 +53,8 @@ export function TranslateForm( {
 
                 inpFromRef.current.value = word;
                 inpToRef.current.value = translation;
+                fromRef.current.value = 'auto';
+                toRef.current.value = 'auto';
             }
 
         } );
