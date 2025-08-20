@@ -86,7 +86,7 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
                     </select>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group short">
                     <label htmlFor="level">Level</label>
                     <select ref={levelRef} className="select select-small" id='level'>
                         <option value="A1">A1</option>

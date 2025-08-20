@@ -306,10 +306,10 @@ ul {
 .add-word-page .row .form-group {
   width: 50%;
   margin-bottom: 0;
+}
 
-  &:last-child {
-    width: 25%;
-  }
+.short {
+  width: 25%;
 }
 
 @keyframes rotation {
