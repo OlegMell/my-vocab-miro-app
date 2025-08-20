@@ -8,6 +8,7 @@ import { useTabsContext } from './TabsProvider';
 import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
 import { addWordRequest } from '../app/lib/addWord';
 import { Tooltip as ReactTooltip, TooltipRefProps } from "react-tooltip";
+import { TABS_ID } from './Tabs';
 
 export interface AddWordProps {
     readonly user: User;
@@ -54,7 +55,7 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
         if ( addedCallback ) {
             addedCallback();
         } else {
-            tabsContext.handleTabClick( 0 );
+            tabsContext.handleTabClick( TABS_ID.Vocab );
         }
     }
 

@@ -4,9 +4,15 @@ import React from 'react';
 import { useTabsContext } from './TabsProvider';
 import { UserType } from '../app/core/enums/user-type.enum';
 
+export enum TABS_ID {
+    Vocab,
+    AddWord,
+    Students
+}
+
 const TABS = [
-    { id: 0, name: 'Vocab' },
-    { id: 1, name: 'New word' },
+    { id: TABS_ID.Vocab, name: 'Vocab' },
+    { id: TABS_ID.AddWord, name: 'New word' },
 ];
 
 const getTabs = ( userType: string ) => {

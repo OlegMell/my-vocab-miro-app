@@ -40,9 +40,6 @@ const getBoards = async () => {
 export default async function Page() {
   const { userId, authUrl } = await getBoards();
 
-  console.log( userId );
-  console.log( authUrl );
-
   const currentUser = await getUserByMiroUserId( userId! );
 
   return (

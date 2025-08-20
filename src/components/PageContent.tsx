@@ -7,6 +7,7 @@ import { Topics } from './Topics';
 import { AddWord } from './AddWord';
 import { Topic } from '../app/core/models/topic.interface';
 import { LocalStorageKeys } from '../app/core/enums/local-storage-keys.enum';
+import { TABS_ID } from './Tabs';
 
 interface PageContentProps {
     readonly userSerialized: string;
@@ -21,19 +22,19 @@ export function PageContent( { userSerialized }: PageContentProps ): React.React
 
     const goToAddWord = ( topic: Topic | undefined ) => {
         localStorage.setItem( LocalStorageKeys.TOPIC_ID, topic!._id );
-        tabsContext.handleTabClick( 1 );
+        tabsContext.handleTabClick( TABS_ID.AddWord );
     }
 
     return (
         <>
             {
-                tabsContext.activeTab === 0 && <Topics userId={user.id || user._id} addWordClicked={goToAddWord} topics={user.topics} />
+                tabsContext.activeTab === TABS_ID.Vocab && <Topics userId={user.id || user._id} addWordClicked={goToAddWord} topics={user.topics} />
             }
             {
-                tabsContext.activeTab === 1 && <AddWord user={user} topics={user.topics} />
+                tabsContext.activeTab === TABS_ID.AddWord && <AddWord user={user} topics={user.topics} />
             }
             {
-                tabsContext.activeTab === 2 && <Students />
+                tabsContext.activeTab === TABS_ID.Students && <Students />
             }
         </>
     )
