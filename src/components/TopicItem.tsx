@@ -55,7 +55,7 @@ export function TopicItem( { topic, userId, addWordClicked }: TopicItemProps ): 
                 return;
             }
 
-            await addWordRequest( {
+            addWordRequest( {
                 word: word.trim(),
                 lang: 'auto',
                 translation: translation.trim(),
