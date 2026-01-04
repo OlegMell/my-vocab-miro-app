@@ -39,7 +39,6 @@ export function TranslateForm({
     const toRef: any = useRef();
 
     useEffect(() => {
-
         miro.board.ui.on('selection:update', async () => {
 
             let selectedItems = await miro.board.getSelection();
@@ -64,7 +63,6 @@ export function TranslateForm({
             }
 
         });
-
     }, [])
 
     useEffect(() => {
@@ -88,6 +86,10 @@ export function TranslateForm({
     };
 
     const submit = async (value: string) => {
+        console.log('[toRef]', toRef.current?.value);
+        console.log('[toRef]', toRef.current);
+        console.log('[fromRef]', fromRef.current?.value);
+
         const res = await getTranslation(
             value,
             fromRef.current?.value,
