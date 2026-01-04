@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { addUserToDB } from '../app/lib/addUser';
 import { useForm } from 'react-hook-form';
 
-export default function Welcome( { userId, updateUser }: any ): React.ReactElement {
+export default function Welcome({ userId, updateUser }: any): React.ReactElement {
     const [ error, setError ] = useState<string | undefined>();
 
     const {
@@ -13,8 +13,8 @@ export default function Welcome( { userId, updateUser }: any ): React.ReactEleme
         formState: { errors },
     } = useForm();
 
-    const onSubmit = handleSubmit( async data => {
-        const response = await addUserToDB( {
+    const onSubmit = handleSubmit(async data => {
+        const response = await addUserToDB({
             userId,
             name: data.name,
             email: data.email,
@@ -23,26 +23,26 @@ export default function Welcome( { userId, updateUser }: any ): React.ReactEleme
             students: [],
             topics: [],
             level: data.level,
-        } );
+        });
 
-        if ( 'error' in response ) {
-            setError( response.error );
+        if ('error' in response) {
+            setError(response.error);
             return;
         }
 
         updateUser();
-    } );
+    });
 
     return (
         <>
             <h2>Welcome!</h2>
             <p>Here you can store your vocabulary and learn new words!</p>
-            <br />
-            <p>Let me know you better. <br />Please, answer a few questions below:</p>
-            <br />
+            <br/>
+            <p>Let me know you better. <br/>Please, answer a few questions below:</p>
+            <br/>
 
             <form
-                onSubmit={e => e.preventDefault()}
+                onSubmit={ e => e.preventDefault() }
                 noValidate>
 
                 <div className="form-group">
@@ -51,14 +51,14 @@ export default function Welcome( { userId, updateUser }: any ): React.ReactEleme
                         className="input"
                         id='name'
                         placeholder='Enter your name or nickname'
-                        {...register( 'name', {
+                        { ...register('name', {
                             required: {
                                 value: true,
                                 message: 'required',
                             },
-                        } )}
+                        }) }
                     />
-                    {errors.name && <p className='validation-error'>Required</p>}
+                    { errors.name && <p className='validation-error'>Required</p> }
                 </div>
 
                 <div className="form-group">
@@ -68,32 +68,32 @@ export default function Welcome( { userId, updateUser }: any ): React.ReactEleme
                         className="input"
                         type="text"
                         placeholder="Enter your email"
-                        {...register( 'email', {
+                        { ...register('email', {
                             pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                             required: {
                                 value: true,
                                 message: 'required',
                             },
-                        } )}
+                        }) }
                     />
-                    {errors.email && <p className='validation-error'>Required</p>}
+                    { errors.email && <p className='validation-error'>Required</p> }
                 </div>
 
-                <hr />
+                <hr/>
 
                 <p>You are: *</p>
-                <br />
+                <br/>
                 <label className="radiobutton">
                     <input
                         type="radio"
                         name="type"
                         value='teacher'
-                        {...register( 'userType', {
+                        { ...register('userType', {
                             required: {
                                 value: true,
                                 message: 'required',
                             },
-                        } )}
+                        }) }
                     />
                     <span>Teacher</span>
                 </label>
@@ -102,33 +102,33 @@ export default function Welcome( { userId, updateUser }: any ): React.ReactEleme
                         type="radio"
                         name="type"
                         value='student'
-                        {...register( 'userType', {
+                        { ...register('userType', {
                             required: {
                                 value: true,
                                 message: 'required',
                             },
-                        } )}
+                        }) }
                     />
                     <span>Student</span>
                 </label>
 
-                {errors.userType && <p className='validation-error'>Required</p>}
+                { errors.userType && <p className='validation-error'>Required</p> }
 
-                <hr />
+                <hr/>
 
                 <p>What is your level of language proficiency? *</p>
-                <br />
+                <br/>
                 <label className="radiobutton">
                     <input
                         type="radio"
                         name="level"
                         value='beginner'
-                        {...register( 'level', {
+                        { ...register('level', {
                             required: {
                                 value: true,
                                 message: 'required',
                             },
-                        } )}
+                        }) }
                     />
                     <span>beginner</span>
                 </label>
@@ -137,12 +137,12 @@ export default function Welcome( { userId, updateUser }: any ): React.ReactEleme
                         type="radio"
                         name="level"
                         value='intermediate'
-                        {...register( 'level', {
+                        { ...register('level', {
                             required: {
                                 value: true,
                                 message: 'required',
                             },
-                        } )}
+                        }) }
                     />
                     <span>intermediate</span>
                 </label>
@@ -151,28 +151,29 @@ export default function Welcome( { userId, updateUser }: any ): React.ReactEleme
                         type="radio"
                         name="level"
                         value='advanced'
-                        {...register( 'level', {
+                        { ...register('level', {
                             required: {
                                 value: true,
                                 message: 'required',
                             },
-                        } )}
+                        }) }
                     />
                     <span>advanced</span>
                 </label>
 
-                {errors.level && <p className='validation-error'>Required</p>}
+                { errors.level && <p className='validation-error'>Required</p> }
 
-                <hr />
+                <hr/>
 
                 {/* <p>Is progress in the form of statistics and achievements important to you?</p>
             <label className="checkbox">
                 <input type="checkbox" onChange={handleProgress} />
                 <span>Yes</span>
-            </label> */}
+            </label> */ }
 
-                <button onClick={onSubmit} className='button button-primary'>Let's go!</button >
-                {error && <p className='validation-error'>{error}</p>}
+                { error && <p className='validation-error'>{ error }</p> }
+                <button onClick={ onSubmit } className='button button-primary'>Let's go!</button>
+
             </form>
         </>
     )
