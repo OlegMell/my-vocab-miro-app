@@ -86,10 +86,6 @@ export function TranslateForm({
     };
 
     const submit = async (value: string) => {
-        console.log('[toRef]', toRef.current?.value);
-        console.log('[toRef]', toRef.current);
-        console.log('[fromRef]', fromRef.current?.value);
-
         const res = await getTranslation(
             value,
             fromRef.current?.value,
@@ -138,7 +134,7 @@ export function TranslateForm({
         onTranslationChange(translation);
     }
 
-    const onTranslationLangChange = ({ target }: any) => {
+    const onTranslationLangChange = () => {
         submit(inpFromRef.current?.value);
     }
 
@@ -152,17 +148,6 @@ export function TranslateForm({
                         hasAuto={ true }
                         className='select select-small'
                     />
-                    {/*<select*/ }
-                    {/*    ref={ fromRef }*/ }
-                    {/*    className="select select-small">*/ }
-                    {/*    <option selected value="auto">Auto</option>*/ }
-                    {/*    {*/ }
-                    {/*        LANGS.map((lang) => (*/ }
-                    {/*                <option value={ lang.value }>{ lang.label }</option>*/ }
-                    {/*            )*/ }
-                    {/*        )*/ }
-                    {/*    }*/ }
-                    {/*</select>*/ }
                 </div>
                 <div className="form-group">
                     <textarea
@@ -179,7 +164,6 @@ export function TranslateForm({
                 <br/>
                 <div className="form-group">
                     <label htmlFor="translation"></label>
-
                     <LangSelect
                         id='translation'
                         langs={ LANGS }
@@ -188,21 +172,6 @@ export function TranslateForm({
                         defaultValue={ langTo }
                         className='select select-small'
                     />
-
-                    {/*<select*/ }
-                    {/*    id='translation'*/ }
-                    {/*    ref={ toRef }*/ }
-                    {/*    defaultValue={ langTo }*/ }
-                    {/*    onChange={ onTranslationLangChange }*/ }
-                    {/*    className="select select-small">*/ }
-                    {/*    {*/ }
-                    {/*        LANGS.map((lang) => (*/ }
-                    {/*                <option value={ lang.value }>{ lang.label }</option>*/ }
-                    {/*            )*/ }
-                    {/*        )*/ }
-                    {/*    }*/ }
-                    {/*</select>*/ }
-
                 </div>
                 <div className="form-group">
                     <textarea
@@ -221,7 +190,6 @@ export function TranslateForm({
                 translated={ !!translated }
                 partsMap={ partsMap }
             />
-
         </form>
     )
 }

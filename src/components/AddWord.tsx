@@ -98,7 +98,7 @@ export function AddWord( { user, topics, addedCallback }: AddWordProps ): React.
                     </select>
                 </div>
 
-                <span data-tooltip-id='tipTooltip' className='icon icon-info'></span>
+                <span data-tooltip-id='tipTooltip' className='icon icon-info tip-icon'></span>
 
                 <ReactTooltip
                     ref={tooltipRef}

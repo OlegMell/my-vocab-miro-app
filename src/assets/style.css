@@ -312,6 +312,10 @@ ul {
   width: 25%;
 }
 
+.tip-icon {
+    margin-left: auto;
+}
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);

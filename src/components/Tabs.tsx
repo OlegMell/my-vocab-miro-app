@@ -19,7 +19,7 @@ const getTabs = ( userType: string ) => {
     if ( userType === UserType.Teacher ) {
         return [
             ...TABS,
-            { id: TABS.length, name: 'Students' },
+            // { id: TABS.length, name: 'Students' },
         ];
     }
 
