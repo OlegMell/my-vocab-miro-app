@@ -1,4 +1,4 @@
-import React, { SelectHTMLAttributes } from 'react';
+import React, { forwardRef, LegacyRef, SelectHTMLAttributes } from 'react';
 
 export interface ValueLabel {
     value: string;
@@ -7,18 +7,16 @@ export interface ValueLabel {
 
 export interface LangSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     langs: ValueLabel[];
-    ref: React.LegacyRef<HTMLSelectElement> | undefined;
     hasAuto?: boolean;
 }
 
-export const LangSelect = ({
-                               langs,
-                               ref,
-                               hasAuto,
-                               onChange,
-                               defaultValue,
-                               className
-                           }: LangSelectProps) => {
+export const LangSelect = forwardRef(({
+                                          langs,
+                                          hasAuto,
+                                          onChange,
+                                          defaultValue,
+                                          className
+                                      }: LangSelectProps, ref: LegacyRef<HTMLSelectElement> | undefined) => {
     return (
         <select
             ref={ ref }
@@ -34,4 +32,4 @@ export const LangSelect = ({
             }
         </select>
     )
-}
+})
