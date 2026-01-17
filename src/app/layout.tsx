@@ -3,6 +3,8 @@ import Script from 'next/script';
 
 import { MiroSDKInit } from '../components/SDKInit';
 
+// LOG FOR TEST!!!!
+
 export default function RootLayout( { children }: PropsWithChildren ) {
   return (
     <html>
